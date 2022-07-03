@@ -53,17 +53,26 @@ body {
   align-items: center;
 }
 
-#search-bar-label {
-  font-size: 1.75em;
-  font-weight: bolder;
-  color: #f3ac4c;
-  padding-right: 2%;
+label {
+  position: relative;
+}
+
+label:before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 1.25em;
+  background: url(svgs/search.svg) center / contain no-repeat;
+  filter: invert(79%) sepia(72%) saturate(913%) hue-rotate(323deg) brightness(101%) contrast(91%);
 }
 
 #search-bar-input {
-  width: 15vw;
+  width: 12vw;
   height: 3.25vh;
   font-size: 1.5em;
+  padding-left: 15%;
   color: #438ccc;
 }
 
