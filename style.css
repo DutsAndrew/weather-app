@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300&family=Roboto+Mono:wght@300&display=swap');
+
+body {
+  font-family: 'Roboto Mono', monospace, 'Fredoka', sans-serif;
+}
+
+#background {
+  background-image: url(/imgs/mountain-lake.jpg);
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+#header {
+  width: 100vw;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+}
+
+#header-left {
+  display: flex;
+  width: 50vw;
+  height: 10vh;
+  align-items: center;
+}
+
+#header-title-first {
+  padding-left: 4%;
+  font-size: 2.5em;
+  font-weight: bolder;
+  color: #f3ac4c;
+}
+
+#header-title-second {
+  font-size: 2.5em;
+  font-weight: bolder;
+  color: #438ccc;
+}
+
+#header-icon {
+  display: flex;
+  width: 4em;
+  height: 4em;
+  padding-left: 4%;
+}
+
+#header-right {
+  display: flex;
+  width: 50vw;
+  justify-content: flex-end;
+  padding-right: 4%;
+  align-items: center;
+}
+
+#search-bar-label {
+  font-size: 1.75em;
+  font-weight: bolder;
+  color: #f3ac4c;
+  padding-right: 2%;
+}
+
+#search-bar-input {
+  width: 15vw;
+  height: 3.25vh;
+  font-size: 1.5em;
+  color: #438ccc;
+}
+
+#app {
+
+}
+
+#app-top {
+
+}
+
+#app-top-left {
+
+}
+
+#location-information {
+
+}
+
+#app-top-right {
+
+}
+
+#location-extra-information {
+
+}
+
+#app-bottom {
+
+}
+
+#forecast-hourly {
+
+}
+
+#forecast-daily {
+
+}

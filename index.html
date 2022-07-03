@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="icon" type="image/png" href="svgs/logo.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div id="background">
+    <div id="header">
+      <div id="header-left">
+        <p id="header-title-first">Weather</p><p id="header-title-second">&nbspApp</p>
+        <img id="header-icon" src="svgs/logo.png"></img>
+      </div>
+      <div id="header-right">
+        <label for="" id="search-bar-label">Search City:</label>
+        <input type="text" id="search-bar-input" placeholder="Reykjavík">
+      </div>
+    </div>
+    <div id="app">
+      <div id="app-top">
+        <div id="app-top-left">
+          <div id="location-information"></div>
+        </div>
+        <div id="app-top-right">
+          <div id="location-extra-information"></div>
+        </div>
+      </div>
+      <div id="app-bottom">
+        <div id="forecast-hourly"></div>
+        <div id="forecast-daily"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
