@@ -96,36 +96,86 @@ function appendCurrentWeather(
   tempMax
   ) {
     const locationInformation = document.querySelector('#location-information');
+    let cityContainer = document.createElement('div');
+      cityContainer.setAttribute('id', 'city-container');
+    let citySvg = document.createElement('img');
+      citySvg.setAttribute('id', 'city-svg');
+      citySvg.src = 'svgs/location.svg';
     let city = document.createElement('p');
       city.setAttribute('id', 'city-name');
       city.textContent = `${retrievedCityName}, ${country}`;
+    let weatherDescriptionContainer = document.createElement('div');
+      weatherDescriptionContainer.setAttribute('id', 'weather-description-container');
+    let weatherDescriptionSvg = document.createElement('img');
+      weatherDescriptionSvg.setAttribute('id', 'weather-description-svg');
+      // weatherDescriptionSvg.src = FIND AWAY TO ALTERNATE SVG BASED ON WEATHER MAIN/DESCRIPTION FROM API
     let weatherDescription = document.createElement('p');
       weatherDescription.setAttribute('id', 'weather-description');
       weatherDescription.textContent = `${weatherType}, ${description}`;
+    let weatherTemperatureContainer = document.createElement('div');
+      weatherTemperatureContainer.setAttribute('id', 'weather-temperature-container');
+    let weatherTemperatureSvg = document.createElement('img');
+      weatherTemperatureSvg.setAttribute('id', 'weather-temperature-svg');
+      weatherTemperatureSvg.src = 'svgs/temp.svg';
     let weatherTemperature = document.createElement('p');
       weatherTemperature.setAttribute('id', 'weather-temperature');
       weatherTemperature.textContent = `${temp} °F`;
 
-    locationInformation.appendChild(city);
-    locationInformation.appendChild(weatherDescription);
-    locationInformation.appendChild(weatherTemperature);
+    cityContainer.appendChild(citySvg);
+    cityContainer.appendChild(city);
+    weatherDescriptionContainer.appendChild(weatherDescriptionSvg);
+    weatherDescriptionContainer.appendChild(weatherDescription);
+    weatherTemperatureContainer.appendChild(weatherTemperatureSvg);
+    weatherTemperatureContainer.appendChild(weatherTemperature);
+    locationInformation.appendChild(cityContainer);
+    locationInformation.appendChild(weatherDescriptionContainer);
+    locationInformation.appendChild(weatherTemperatureContainer);
 
     const locationExtraInformation = document.querySelector('#location-extra-information');
+    let weatherFeelsLikeContainer = document.createElement('div');
+      weatherFeelsLikeContainer.setAttribute('id', 'weather-feels-like-container');
+    let weatherFeelsLikeSvg = document.createElement('img');
+      weatherFeelsLikeSvg.setAttribute('id', 'weather-feels-like-svg');
+      weatherFeelsLikeSvg.src = 'svgs/feels-like.svg';
     let weatherFeelsLike = document.createElement('p');
       weatherFeelsLike.setAttribute('id', 'weather-feels-like');
       weatherFeelsLike.textContent = `Feels Like: ${feelsLike}`;
+    let weatherHumidityContainer = document.createElement('div');
+      weatherHumidityContainer.setAttribute('id', 'weather-humidity-container');
+    let weatherHumiditySvg = document.createElement('img');
+      weatherHumiditySvg.setAttribute('id', 'weather-humidity-svg');
+      weatherHumiditySvg.src = 'svgs/humidity.svg';
     let weatherHumidity = document.createElement('p');
       weatherHumidity.setAttribute('id', 'weather-humidity');
       weatherHumidity.textContent = `Humidity: ${humidity}`;
+    let weatherMinContainer = document.createElement('div');
+      weatherMinContainer.setAttribute('id', 'weather-min-container');
+    let weatherMinSvg = document.createElement('img');
+      weatherMinSvg.setAttribute('id', 'weather-min-svg');
+      weatherMinSvg.src = 'svgs/temp-min.svg';
     let weatherMin = document.createElement('p');
       weatherMin.setAttribute('id', 'weather-min');
       weatherMin.textContent = `Temperature Low: ${tempMin}`;
+    let weatherMaxContainer = document.createElement('div');
+      weatherMaxContainer.setAttribute('id', 'weather-max-container');
+    let weatherMaxSvg = document.createElement('img');
+      weatherMaxSvg.setAttribute('id', 'weather-max-svg');
+      weatherMaxSvg.src = 'svgs/temp-max.svg';
     let weatherMax = document.createElement('p');
       weatherMax.setAttribute('id', 'weather-max');
       weatherMax.textContent = `Temperature High: ${tempMax}`;
 
-    locationExtraInformation.appendChild(weatherFeelsLike);
-    locationExtraInformation.appendChild(weatherHumidity);
-    locationExtraInformation.appendChild(weatherMin);
-    locationExtraInformation.appendChild(weatherMax);
+    weatherFeelsLikeContainer.appendChild(weatherFeelsLikeSvg);
+    weatherFeelsLikeContainer.appendChild(weatherFeelsLike);
+    weatherHumidityContainer.appendChild(weatherHumiditySvg);
+    weatherHumidityContainer.appendChild(weatherHumidity);
+    weatherMinContainer.appendChild(weatherMinSvg);
+    weatherMinContainer.appendChild(weatherMin);
+    weatherMaxContainer.appendChild(weatherMaxSvg);
+    weatherMaxContainer.appendChild(weatherMax);
+
+    locationExtraInformation.appendChild(weatherFeelsLikeContainer);
+    locationExtraInformation.appendChild(weatherHumidityContainer);
+    locationExtraInformation.appendChild(weatherMinContainer);
+    locationExtraInformation.appendChild(weatherMaxContainer);
 }

@@ -97,47 +97,87 @@ label:before {
 #location-information {
   display: flex;
   width: 50vw;
-  height: 50vh;
+  height: 40vh;
   flex-flow: column wrap;
   align-content: center;
   justify-content: flex-start;
   align-items: center;
+  margin-top: 10%;
 }
 
-#city-name {
-  font-size: 3em;
-  font-weight: bolder;
+#city-container, #weather-description-container, #weather-temperature-container {
+  display: flex;
+  width: 15vw;
+  height: 5vh;
+  align-items: center;
   background-color: rgb(240, 242, 240, 0.7);
   margin: 0;
-  margin-top: 10%;
   width: 40vw;
   padding: 2%;
+}
+
+#city-svg, #weather-description-svg, #weather-temperature-svg {
+  display: flex;
+  width: 2.5em;
+  height: 2.5em;
+  filter: invert(79%) sepia(72%) saturate(913%) hue-rotate(323deg) brightness(101%) contrast(91%);
+}
+
+#city-name, #weather-temperature {
+  font-size: 3em;
+  font-weight: bolder;
+  margin: auto;
+  color: #f3ac4c;
 }
 
 #weather-description {
   font-size: 2.5em;
   font-weight: bolder;
-  background-color: rgb(240, 242, 240, 0.7);
-  margin: 0;
-  width: 40vw;
-  padding: 2%;
-}
-
-#weather-temperature {
-  font-size: 3em;
-  font-weight: bolder;
-  background-color: rgb(240, 242, 240, 0.7);
-  margin: 0;
-  width: 40vw;
-  padding: 2%;
+  margin: auto;
+  color: #f3ac4c;
 }
 
 #app-top-right {
-
+  display: flex;
+  width: 50vw;
+  height: 50vh;
 }
 
 #location-extra-information {
+  display: flex;
+  width: 50vw;
+  height: 40vh;
+  flex-flow: column wrap;
+  align-content: flex-start;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 10%;
+  margin-left: 7%;
+}
 
+#weather-feels-like-container, #weather-humidity-container, #weather-min-container, #weather-max-container {
+  display: flex;
+  width: 15vw;
+  height: 5vh;
+  align-items: center;
+  background-color: rgb(240, 242, 240, 0.7);
+  margin: 0;
+  width: 40vw;
+  padding: 2%;
+}
+
+#weather-feels-like-svg, #weather-humidity-svg, #weather-min-svg, #weather-max-svg {
+  display: flex;
+  width: 2.5em;
+  height: 2.5em;
+  filter: invert(54%) sepia(34%) saturate(861%) hue-rotate(166deg) brightness(88%) contrast(88%);
+}
+
+#weather-feels-like, #weather-humidity, #weather-min, #weather-max {
+  font-size: 2em;
+  font-weight: bolder;
+  margin: auto;
+  color: #438ccc;
 }
 
 #app-bottom {
