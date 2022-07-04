@@ -8,7 +8,7 @@ let retrievedCityLon;
 
 async function getCity() {
   let api = 'http://api.openweathermap.org/geo/1.0/direct?';
-  let city = 'q=Reykjavík'
+  let city = 'q=Reykjavík';
   let amountToRetrieve = '&limit=1';
   let language = '&lang=en';
   let apiKey = '&appid=6c89c21bfc11d403be41f489af3b2eae';
@@ -50,6 +50,7 @@ async function getTodaysWeather() {
     let humidity = searchData.main.humidity;
     let tempMin = searchData.main.temp_min;
     let tempMax = searchData.main.temp_max;
+    let wind = searchData.wind.speed;
     appendCurrentWeather(
       temp,
       weatherType,
@@ -58,7 +59,8 @@ async function getTodaysWeather() {
       feelsLike,
       humidity,
       tempMin,
-      tempMax
+      tempMax,
+      wind
     );
   } catch (error) {
     console.log(error);
@@ -78,7 +80,8 @@ async function getWeatherForecast() {
   try {
     const response = await fetch (searchWeather, {mode: 'cors'});
     const searchData = await response.json();
-    console.log(searchData);
+    let forecastList = searchData.list;
+    appendWeatherForecast(forecastList);
   } catch (error) {
     console.log(error);
     alert('The server could not find what you were looking for, please try again');
@@ -93,8 +96,11 @@ function appendCurrentWeather(
   feelsLike,
   humidity,
   tempMin,
-  tempMax
+  tempMax,
+  wind
   ) {
+    let today = new Date().toDateString();
+    let time = new Date().toLocaleTimeString();
     const locationInformation = document.querySelector('#location-information');
     let cityContainer = document.createElement('div');
       cityContainer.setAttribute('id', 'city-container');
@@ -120,6 +126,22 @@ function appendCurrentWeather(
     let weatherTemperature = document.createElement('p');
       weatherTemperature.setAttribute('id', 'weather-temperature');
       weatherTemperature.textContent = `${temp} °F`;
+    let todaysDateContainer = document.createElement('div');
+      todaysDateContainer.setAttribute('id', 'todays-date-container');
+    let todaysDateSvg = document.createElement('img');
+      todaysDateSvg.setAttribute('id', 'todays-date-svg');
+      todaysDateSvg.src = 'svgs/date.svg';
+    let todaysDate = document.createElement('p');
+      todaysDate.setAttribute('id', 'todays-date');
+      todaysDate.textContent = `${today}`;
+    let todaysTimeContainer = document.createElement('div');
+      todaysTimeContainer.setAttribute('id', 'todays-time-container');
+    let todaysTimeSvg = document.createElement('img');
+      todaysTimeSvg.setAttribute('id', 'todays-time-svg');
+      todaysTimeSvg.src = 'svgs/time.svg';
+    let todaysTime = document.createElement('p');
+      todaysTime.setAttribute('id', 'todays-time');
+      todaysTime.textContent = `${time}`;
 
     cityContainer.appendChild(citySvg);
     cityContainer.appendChild(city);
@@ -127,9 +149,15 @@ function appendCurrentWeather(
     weatherDescriptionContainer.appendChild(weatherDescription);
     weatherTemperatureContainer.appendChild(weatherTemperatureSvg);
     weatherTemperatureContainer.appendChild(weatherTemperature);
+    todaysDateContainer.appendChild(todaysDateSvg);
+    todaysDateContainer.appendChild(todaysDate);
+    todaysTimeContainer.appendChild(todaysTimeSvg);
+    todaysTimeContainer.appendChild(todaysTime);
     locationInformation.appendChild(cityContainer);
     locationInformation.appendChild(weatherDescriptionContainer);
     locationInformation.appendChild(weatherTemperatureContainer);
+    locationInformation.appendChild(todaysDateContainer);
+    locationInformation.appendChild(todaysTimeContainer);
 
     const locationExtraInformation = document.querySelector('#location-extra-information');
     let weatherFeelsLikeContainer = document.createElement('div');
@@ -139,7 +167,7 @@ function appendCurrentWeather(
       weatherFeelsLikeSvg.src = 'svgs/feels-like.svg';
     let weatherFeelsLike = document.createElement('p');
       weatherFeelsLike.setAttribute('id', 'weather-feels-like');
-      weatherFeelsLike.textContent = `Feels Like: ${feelsLike}`;
+      weatherFeelsLike.textContent = `Feels Like: ${feelsLike} °F`;
     let weatherHumidityContainer = document.createElement('div');
       weatherHumidityContainer.setAttribute('id', 'weather-humidity-container');
     let weatherHumiditySvg = document.createElement('img');
@@ -147,7 +175,7 @@ function appendCurrentWeather(
       weatherHumiditySvg.src = 'svgs/humidity.svg';
     let weatherHumidity = document.createElement('p');
       weatherHumidity.setAttribute('id', 'weather-humidity');
-      weatherHumidity.textContent = `Humidity: ${humidity}`;
+      weatherHumidity.textContent = `Humidity: ${humidity} %`;
     let weatherMinContainer = document.createElement('div');
       weatherMinContainer.setAttribute('id', 'weather-min-container');
     let weatherMinSvg = document.createElement('img');
@@ -155,7 +183,7 @@ function appendCurrentWeather(
       weatherMinSvg.src = 'svgs/temp-min.svg';
     let weatherMin = document.createElement('p');
       weatherMin.setAttribute('id', 'weather-min');
-      weatherMin.textContent = `Temperature Low: ${tempMin}`;
+      weatherMin.textContent = `Temperature Low: ${tempMin} °F`;
     let weatherMaxContainer = document.createElement('div');
       weatherMaxContainer.setAttribute('id', 'weather-max-container');
     let weatherMaxSvg = document.createElement('img');
@@ -163,7 +191,15 @@ function appendCurrentWeather(
       weatherMaxSvg.src = 'svgs/temp-max.svg';
     let weatherMax = document.createElement('p');
       weatherMax.setAttribute('id', 'weather-max');
-      weatherMax.textContent = `Temperature High: ${tempMax}`;
+      weatherMax.textContent = `Temperature High: ${tempMax} °F`;
+    let windSpeedContainer = document.createElement('div');
+      windSpeedContainer.setAttribute('id', 'wind-speed-container');
+    let windSpeedSvg = document.createElement('img');
+      windSpeedSvg.setAttribute('id', 'wind-speed-svg');
+      windSpeedSvg.src = 'svgs/wind.svg';
+    let windSpeed = document.createElement('p');
+      windSpeed.setAttribute('id', 'wind-speed');
+      windSpeed.textContent = `Wind Speed: ${wind} MPH`;
 
     weatherFeelsLikeContainer.appendChild(weatherFeelsLikeSvg);
     weatherFeelsLikeContainer.appendChild(weatherFeelsLike);
@@ -173,9 +209,47 @@ function appendCurrentWeather(
     weatherMinContainer.appendChild(weatherMin);
     weatherMaxContainer.appendChild(weatherMaxSvg);
     weatherMaxContainer.appendChild(weatherMax);
+    windSpeedContainer.appendChild(windSpeedSvg);
+    windSpeedContainer.appendChild(windSpeed);
 
     locationExtraInformation.appendChild(weatherFeelsLikeContainer);
     locationExtraInformation.appendChild(weatherHumidityContainer);
     locationExtraInformation.appendChild(weatherMinContainer);
     locationExtraInformation.appendChild(weatherMaxContainer);
+    locationExtraInformation.appendChild(windSpeedContainer);
+
+   
+   console.log(today);
+}
+
+function convertDate(date) {
+  date = new Date(date).toDateString();
+  return date;
+}
+
+function appendWeatherForecast(forecastList) {
+
+  let next15Hours = forecastList.slice(0, 5);
+  // Hourly forecast variables
+  next15Hours.forEach(item => {
+    console.log(item);
+    let date = convertDate(item.dt_txt.slice(0, 10));
+    let time = item.dt_txt.slice(11, 19);
+    let temp = item.main.temp;
+    let humidity = item.main.humidity;
+    let weatherType = item.weather[0].main;
+    let weatherDescription = item.weather[0].description;
+    let windSpeed = item.wind.speed;
+    console.log(date, time, temp, humidity, weatherType, weatherDescription, windSpeed);
+  })
+
+  // console.log(forecastList);
+  // let date1 = forecastList[0].dt_txt.slice(0, 10);
+  // let time1 = forecastList[0].dt_txt.slice(11, 19);
+  // let weatherType1 = forecastList[0].weather[0].main;
+  // let weatherDescription1 = forecastList[0].weather[0].description;
+  // console.log(date1);
+  // console.log(time1);
+
+  // Daily forecast variables
 }
