@@ -77,19 +77,59 @@ label:before {
 }
 
 #app {
-
+  display: flex;
+  width: 100vw;
+  height: 90vh;
 }
 
 #app-top {
-
+  display: flex;
+  height: 50vh;
+  width: 100vw;
 }
 
 #app-top-left {
-
+  display: flex;
+  width: 50vw;
+  height: 50vh;
 }
 
 #location-information {
+  display: flex;
+  width: 50vw;
+  height: 50vh;
+  flex-flow: column wrap;
+  align-content: center;
+  justify-content: flex-start;
+  align-items: center;
+}
 
+#city-name {
+  font-size: 3em;
+  font-weight: bolder;
+  background-color: rgb(240, 242, 240, 0.7);
+  margin: 0;
+  margin-top: 10%;
+  width: 40vw;
+  padding: 2%;
+}
+
+#weather-description {
+  font-size: 2.5em;
+  font-weight: bolder;
+  background-color: rgb(240, 242, 240, 0.7);
+  margin: 0;
+  width: 40vw;
+  padding: 2%;
+}
+
+#weather-temperature {
+  font-size: 3em;
+  font-weight: bolder;
+  background-color: rgb(240, 242, 240, 0.7);
+  margin: 0;
+  width: 40vw;
+  padding: 2%;
 }
 
 #app-top-right {
