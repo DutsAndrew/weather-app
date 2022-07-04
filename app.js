@@ -81,7 +81,7 @@ async function getWeatherForecast() {
     const response = await fetch (searchWeather, {mode: 'cors'});
     const searchData = await response.json();
     let forecastList = searchData.list;
-    appendWeatherForecast(forecastList);
+    bundleForecastData(forecastList);
   } catch (error) {
     console.log(error);
     alert('The server could not find what you were looking for, please try again');
@@ -227,11 +227,11 @@ function convertDate(date) {
   return date;
 }
 
-function appendWeatherForecast(forecastList) {
+function bundleForecastData(forecastList) {
 
-  let next15Hours = forecastList.slice(0, 5);
-  // Hourly forecast variables
-  next15Hours.forEach(item => {
+  // Hourly forecast bundle
+  let next21Hours = forecastList.slice(0, 7);
+  next21Hours.forEach(item => {
     console.log(item);
     let date = convertDate(item.dt_txt.slice(0, 10));
     let time = item.dt_txt.slice(11, 19);
@@ -240,16 +240,138 @@ function appendWeatherForecast(forecastList) {
     let weatherType = item.weather[0].main;
     let weatherDescription = item.weather[0].description;
     let windSpeed = item.wind.speed;
-    console.log(date, time, temp, humidity, weatherType, weatherDescription, windSpeed);
+
+    appendHourlyForecast(
+      date,
+      time,
+      temp,
+      humidity,
+      weatherType,
+      weatherDescription,
+      windSpeed
+      );
   })
+  
+  // Daily forecast bundle
+}
 
-  // console.log(forecastList);
-  // let date1 = forecastList[0].dt_txt.slice(0, 10);
-  // let time1 = forecastList[0].dt_txt.slice(11, 19);
-  // let weatherType1 = forecastList[0].weather[0].main;
-  // let weatherDescription1 = forecastList[0].weather[0].description;
-  // console.log(date1);
-  // console.log(time1);
+function appendHourlyForecast(
+  date,
+  time,
+  temp,
+  humidity,
+  weatherType,
+  weatherDescription,
+  windSpeed
+  ) {
+  console.log(date, time, temp, humidity, weatherType, weatherDescription, windSpeed);
 
-  // Daily forecast variables
+  const foreCastHourly = document.querySelector('#forecast-hourly');
+  const foreCastDaily = document.querySelector('#forecast-daily');
+
+  let nextForecast = document.createElement('div');
+    nextForecast.setAttribute('id', 'next-forecast');
+    nextForecast.classList.add('forecast-hourly-closed');
+  let nextForecastDateContainer = document.createElement('div');
+    nextForecastDateContainer.setAttribute('id', 'next-forecast-date-container');
+    nextForecastDateContainer.classList.add('forecast-hourly-closed');
+  let nextForecastDateSvg = document.createElement('img');
+    nextForecastDateSvg.setAttribute('id', 'next-forecast-date-svg');
+    nextForecastDateSvg.classList.add('forecast-hourly-item-closed');
+    nextForecastDateSvg.src = 'svgs/date.svg';
+  let nextForecastDate = document.createElement('p');
+    nextForecastDate.setAttribute('id', 'next-forecast-date');
+    nextForecastDate.classList.add('forecast-hourly-item-closed');
+    nextForecastDate.textContent = `${date}`;
+  let nextForecastTimeContainer = document.createElement('div');
+    nextForecastTimeContainer.setAttribute('id', 'next-forecast-time-container');
+    nextForecastTimeContainer.classList.add('forecast-hourly-closed');
+  let nextForecastTimeSvg = document.createElement('img');
+    nextForecastTimeSvg.setAttribute('id', 'next-forecast-time-svg');
+    nextForecastTimeSvg.classList.add('forecast-hourly-item-closed');
+    nextForecastTimeSvg.src = 'svgs/time.svg';
+  let nextForecastTime = document.createElement('p');
+    nextForecastTime.setAttribute('id', 'next-forecast-time');
+    nextForecastTime.classList.add('forecast-hourly-item-closed');
+    nextForecastTime.textContent = `${time}`;
+  let nextForecastTempContainer = document.createElement('div');
+    nextForecastTempContainer.setAttribute('id', 'next-forecast-temp-container');
+    nextForecastTempContainer.classList.add('forecast-hourly-closed');
+  let nextForecastTempSvg = document.createElement('img');
+    nextForecastTempSvg.setAttribute('id', 'next-forecast-temp-svg');
+    nextForecastTempSvg.classList.add('forecast-hourly-item-closed');
+    nextForecastTempSvg.src = 'svgs/temp.svg';
+  let nextForecastTemp = document.createElement('p');
+    nextForecastTemp.setAttribute('id', 'next-forecast-temp');
+    nextForecastTemp.classList.add('forecast-hourly-item-closed');
+    nextForecastTemp.textContent = `${temp} °F`;
+  let nextForecastHumidityContainer = document.createElement('div');
+    nextForecastHumidityContainer.setAttribute('id', 'next-forecast-humidity-container');
+    nextForecastHumidityContainer.classList.add('forecast-hourly-closed');
+  let nextForecastHumiditySvg = document.createElement('img');
+    nextForecastHumiditySvg.setAttribute('id', 'next-forecast-humidity-svg');
+    nextForecastHumiditySvg.classList.add('forecast-hourly-item-closed');
+    nextForecastHumiditySvg.src = 'svgs/humidity.svg';
+  let nextForecastHumidity = document.createElement('p');
+    nextForecastHumidity.setAttribute('id', 'next-forecast-humidity');
+    nextForecastHumidity.classList.add('forecast-hourly-item-closed');
+    nextForecastHumidity.textContent = `Humidity: ${humidity} %`;
+  let nextForecastWeatherTypeContainer = document.createElement('div');
+    nextForecastWeatherTypeContainer.setAttribute('id', 'next-forecast-weather-type-container');
+    nextForecastWeatherTypeContainer.classList.add('forecast-hourly-closed');
+  let nextForecastWeatherTypeSvg = document.createElement('img');
+    nextForecastWeatherTypeSvg.setAttribute('id', 'next-forecast-weather-type-svg');
+    nextForecastWeatherTypeSvg.classList.add('forecast-hourly-item-closed');
+    nextForecastWeatherTypeSvg.src = '';
+  let nextForecastWeatherType = document.createElement('p');
+    nextForecastWeatherType.setAttribute('id', 'next-forecast-weather-type');
+    nextForecastWeatherType.classList.add('forecast-hourly-item-closed');
+    nextForecastWeatherType.textContent = `${weatherType}, ${weatherDescription}`;
+  let nextForecastWindContainer = document.createElement('div');
+    nextForecastWindContainer.setAttribute('id', 'next-forecast-wind-container');
+    nextForecastWindContainer.classList.add('forecast-hourly-closed');
+  let nextForecastWindSvg = document.createElement('img');
+    nextForecastWindSvg.setAttribute('id', 'next-forecast-wind-svg');
+    nextForecastWindSvg.classList.add('forecast-hourly-item-closed');
+    nextForecastWindSvg.src = 'svgs/wind.svg';
+  let nextForecastWind = document.createElement('p');
+    nextForecastWind.setAttribute('id', 'next-forecast-wind');
+    nextForecastWind.classList.add('forecast-hourly-item-closed');
+    nextForecastWind.textContent = `Wind Speed: ${windSpeed} MPH`;
+
+  nextForecastDateContainer.appendChild(nextForecastDateSvg);
+  nextForecastDateContainer.appendChild(nextForecastDate);
+  nextForecastTimeContainer.appendChild(nextForecastTimeSvg);
+  nextForecastTimeContainer.appendChild(nextForecastTime);
+  nextForecastTempContainer.appendChild(nextForecastTempSvg);
+  nextForecastTempContainer.appendChild(nextForecastTemp);
+  nextForecastHumidityContainer.appendChild(nextForecastHumiditySvg);
+  nextForecastHumidityContainer.appendChild(nextForecastHumidity);
+  nextForecastWeatherTypeContainer.appendChild(nextForecastWeatherTypeSvg);
+  nextForecastWeatherTypeContainer.appendChild(nextForecastWeatherType);
+  nextForecastWindContainer.appendChild(nextForecastWindSvg);
+  nextForecastWindContainer.appendChild(nextForecastWind);
+
+  nextForecast.appendChild(nextForecastDateContainer);
+  nextForecast.appendChild(nextForecastTimeContainer);
+  nextForecast.appendChild(nextForecastTempContainer);
+  nextForecast.appendChild(nextForecastHumidityContainer);
+  nextForecast.appendChild(nextForecastWeatherTypeContainer);
+  nextForecast.appendChild(nextForecastWindContainer);
+
+  foreCastHourly.appendChild(nextForecast);
+}
+
+const hourlyButton = document.querySelector('#hourly-forecast-button');
+  hourlyButton.addEventListener('click', showHourlyForecast);
+
+function showHourlyForecast() {
+  console.log('hourly forecast is being requested');
+}
+
+const dailyButton = document.querySelector('#daily-forecast-button');
+  dailyButton.addEventListener('click', showDailyForecast);
+
+function showDailyForecast() {
+  console.log('daily forecast is being requested');
 }
