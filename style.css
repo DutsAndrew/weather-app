@@ -161,7 +161,7 @@ label:before {
   padding: 2%;
 }
 
-#weather-feels-like-svg, #weather-humidity-svg, #weather-min-svg, #weather-max-svg, #wind-speed-svg {
+#weather-feels-like-svg, #weather-humidity-svg, #weather-min-svg, #weather-max-svg, #wind-speed-svg, #next-daily-forecast-weather-type-svg, #next-hourly-forecast-weather-type-svg {
   display: flex;
   width: 2.5em;
   height: 2.5em;
@@ -301,7 +301,7 @@ label:before {
   flex-flow: column nowrap;
   align-items: center;
   width: 13.5vw;
-  height: 35vh;
+  height: 32vh;
   font-size: 0.85em;
   background-color: rgb(240, 242, 240, 0.9);
   margin: 0.25%;

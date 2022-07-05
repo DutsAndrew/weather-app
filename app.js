@@ -27,7 +27,6 @@ let retrievedCityLon;
 async function getCity() {
   let searchedCity = document.getElementById('search-bar-input').value;
   let defaultCity = 'Reykjavík';
-  console.log(searchedCity)
   if (searchedCity.length === 0) {
     searchedCity = defaultCity;
   }
@@ -138,7 +137,7 @@ function appendCurrentWeather(
       weatherDescriptionContainer.setAttribute('id', 'weather-description-container');
     let weatherDescriptionSvg = document.createElement('img');
       weatherDescriptionSvg.setAttribute('id', 'weather-description-svg');
-      // weatherDescriptionSvg.src = FIND AWAY TO ALTERNATE SVG BASED ON WEATHER MAIN/DESCRIPTION FROM API
+      weatherDescriptionSvg.src = 'svgs/weather.svg';
     let weatherDescription = document.createElement('p');
       weatherDescription.setAttribute('id', 'weather-description');
       weatherDescription.textContent = `${weatherType}, ${description}`;
@@ -364,7 +363,7 @@ function appendHourlyForecast(
   let nextHourlyForecastWeatherTypeSvg = document.createElement('img');
     nextHourlyForecastWeatherTypeSvg.setAttribute('id', 'next-hourly-forecast-weather-type-svg');
     nextHourlyForecastWeatherTypeSvg.classList.add('forecast-hourly-item-open');
-    nextHourlyForecastWeatherTypeSvg.src = '';
+    nextHourlyForecastWeatherTypeSvg.src = 'svgs/weather.svg';
   let nextHourlyForecastWeatherType = document.createElement('p');
     nextHourlyForecastWeatherType.setAttribute('id', 'next-hourly-forecast-weather-type');
     nextHourlyForecastWeatherType.classList.add('forecast-hourly-item-open');
@@ -467,7 +466,7 @@ function appendDailyForecast(
   let nextDailyForecastWeatherTypeSvg = document.createElement('img');
     nextDailyForecastWeatherTypeSvg.setAttribute('id', 'next-daily-forecast-weather-type-svg');
     nextDailyForecastWeatherTypeSvg.classList.add('forecast-daily-item-open');
-    nextDailyForecastWeatherTypeSvg.src = '';
+    nextDailyForecastWeatherTypeSvg.src = 'svgs/weather.svg';
   let nextDailyForecastWeatherType = document.createElement('p');
     nextDailyForecastWeatherType.setAttribute('id', 'next-daily-forecast-weather-type');
     nextDailyForecastWeatherType.classList.add('forecast-daily-item-open');
