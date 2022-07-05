@@ -2,6 +2,14 @@ window.onload = () => {
   getCity();
 }
 
+(function attachEventListeners() {
+  const hourlyButton = document.querySelector('#hourly-forecast-button');
+    hourlyButton.addEventListener('click', showHourlyForecast);
+
+  const dailyButton = document.querySelector('#daily-forecast-button');
+    dailyButton.addEventListener('click', showDailyForecast);
+})();
+
 let retrievedCityName;
 let retrievedCityLat;
 let retrievedCityLon;
@@ -141,7 +149,7 @@ function appendCurrentWeather(
       todaysTimeSvg.src = 'svgs/time.svg';
     let todaysTime = document.createElement('p');
       todaysTime.setAttribute('id', 'todays-time');
-      todaysTime.textContent = `${time}`;
+      todaysTime.textContent = `Updated: ${time}`;
 
     cityContainer.appendChild(citySvg);
     cityContainer.appendChild(city);
@@ -216,10 +224,7 @@ function appendCurrentWeather(
     locationExtraInformation.appendChild(weatherHumidityContainer);
     locationExtraInformation.appendChild(weatherMinContainer);
     locationExtraInformation.appendChild(weatherMaxContainer);
-    locationExtraInformation.appendChild(windSpeedContainer);
-
-   
-   console.log(today);
+    locationExtraInformation.appendChild(windSpeedContainer);   
 }
 
 function convertDate(date) {
@@ -232,7 +237,6 @@ function bundleForecastData(forecastList) {
   // Hourly forecast bundle
   let next21Hours = forecastList.slice(0, 7);
   next21Hours.forEach(item => {
-    console.log(item);
     let date = convertDate(item.dt_txt.slice(0, 10));
     let time = item.dt_txt.slice(11, 19);
     let temp = item.main.temp;
@@ -253,6 +257,32 @@ function bundleForecastData(forecastList) {
   })
   
   // Daily forecast bundle
+  let dailyForecast = [];
+  let nextDay = forecastList.slice(7, 8);
+  let secondDay = forecastList.slice(15, 16)
+  let thirdDay = forecastList.slice(23, 24);
+  let fourthDay = forecastList.slice(31, 32);
+  let fifthDay = forecastList.slice(39, 40);
+  dailyForecast.push(nextDay, secondDay, thirdDay, fourthDay, fifthDay);
+  dailyForecast.forEach(item => {
+    let date = convertDate(item[0].dt_txt.slice(0, 10));
+    let time = item[0].dt_txt.slice(11, 19);
+    let temp = item[0].main.temp;
+    let humidity = item[0].main.humidity;
+    let weatherType = item[0].weather[0].main;
+    let weatherDescription = item[0].weather[0].description;
+    let windSpeed = item[0].wind.speed;
+
+    appendDailyForecast(
+      date,
+      time,
+      temp,
+      humidity,
+      weatherType,
+      weatherDescription,
+      windSpeed
+    )
+  })
 }
 
 function appendHourlyForecast(
@@ -264,11 +294,7 @@ function appendHourlyForecast(
   weatherDescription,
   windSpeed
   ) {
-  console.log(date, time, temp, humidity, weatherType, weatherDescription, windSpeed);
-
   const foreCastHourly = document.querySelector('#forecast-hourly');
-  const foreCastDaily = document.querySelector('#forecast-daily');
-
   let nextForecast = document.createElement('div');
     nextForecast.setAttribute('id', 'next-forecast');
     nextForecast.classList.add('forecast-hourly-closed');
@@ -362,15 +388,22 @@ function appendHourlyForecast(
   foreCastHourly.appendChild(nextForecast);
 }
 
-const hourlyButton = document.querySelector('#hourly-forecast-button');
-  hourlyButton.addEventListener('click', showHourlyForecast);
+function appendDailyForecast(
+  date,
+  time,
+  temp,
+  humidity,
+  weatherType,
+  weatherDescription,
+  windSpeed
+) {
+  console.log(date, time, temp, humidity, weatherType, weatherDescription, windSpeed);
+  const foreCastDaily = document.querySelector('#forecast-daily');
+}
 
 function showHourlyForecast() {
   console.log('hourly forecast is being requested');
 }
-
-const dailyButton = document.querySelector('#daily-forecast-button');
-  dailyButton.addEventListener('click', showDailyForecast);
 
 function showDailyForecast() {
   console.log('daily forecast is being requested');
