@@ -201,20 +201,28 @@ label:before {
   height: 3.5vh;
   font-size: 1em;
   font-weight: bolder;
-  background-color: rgb(240, 242, 240, 0.8);
   border-radius: 10%;
+  margin-left: 3%;
 }
 
-#daily-forecast-button {
-  color: #f3ac4c;
+.daily-forecast-button-off, .hourly-forecast-button-off {
+  background-color: rgb(240, 242, 240, 0.9);
+}
+
+.daily-forecast-button-on {
+  background-color: #f3ac4c;
+  border: 1px solid rgb(240, 242, 240, 0.9);;
+  color: rgb(240, 242, 240, 0.8);;
+}
+
+.hourly-forecast-button-on {
+  background-color: #438ccc;
+  color: rgb(240, 242, 240, 0.8);;
+  border: 1px solid rgb(240, 242, 240, 0.9);;
 }
 
 #hourly-forecast-button {
   color: #438ccc;
-}
-
-#forecast-hourly, #forecast-daily {
-
 }
 
 .forecast-hourly-off {
@@ -245,4 +253,39 @@ label:before {
   display: flex;
   width: 100vw;
   height: 36.5vh;
+  flex-flow: row nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.next-daily-forecast-open {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  width: 18vw;
+  height: 30vh;
+  font-size: 0.8em;
+  background-color: rgb(240, 242, 240, 0.9);
+  margin: 0.5%;
+}
+
+.forecast-daily-open {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 18vw;
+  height: 5vh;
+}
+
+.forecast-daily-item-open {
+  margin: 0;
+  margin-left: 5%;
+  color: #438ccc;
+  font-weight: bolder;
+}
+
+#next-daily-forecast-date-svg, #next-daily-forecast-time-svg, #next-daily-forecast-temp-svg, #next-daily-forecast-humidity-svg, #next-daily-forecast-weather-type-svg, #next-daily-forecast-wind-svg {
+  filter: invert(79%) sepia(72%) saturate(913%) hue-rotate(323deg) brightness(101%) contrast(91%);
 }
