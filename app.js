@@ -8,6 +8,16 @@ window.onload = () => {
 
   const dailyButton = document.querySelector('#daily-forecast-button');
     dailyButton.addEventListener('click', showDailyForecast);
+
+  const searchInput = document.querySelector('#search-bar-input');
+    searchInput.addEventListener('keypress', function(e) {
+      if (e.keyCode === 13) {
+        removePreviousInformation();
+        getCity();
+      } else {
+        return;
+      }
+    })
 })();
 
 let retrievedCityName;
@@ -15,12 +25,18 @@ let retrievedCityLat;
 let retrievedCityLon;
 
 async function getCity() {
+  let searchedCity = document.getElementById('search-bar-input').value;
+  let defaultCity = 'Reykjavík';
+  console.log(searchedCity)
+  if (searchedCity.length === 0) {
+    searchedCity = defaultCity;
+  }
+  let citySearch = 'q=';
   let api = 'http://api.openweathermap.org/geo/1.0/direct?';
-  let city = 'q=Reykjavík';
   let amountToRetrieve = '&limit=1';
   let language = '&lang=en';
   let apiKey = '&appid=6c89c21bfc11d403be41f489af3b2eae';
-  let searchCity = api + city + amountToRetrieve + language + apiKey;
+  let searchCity = api + citySearch + searchedCity + amountToRetrieve + language + apiKey;
 
   try {
     const response = await fetch (searchCity, {mode: 'cors'});
@@ -297,72 +313,72 @@ function appendHourlyForecast(
   const foreCastHourly = document.querySelector('#forecast-hourly');
   let nextHourlyForecast = document.createElement('div');
     nextHourlyForecast.setAttribute('id', 'next-hourly-forecast');
-    nextHourlyForecast.classList.add('forecast-hourly-closed');
+    nextHourlyForecast.classList.add('forecast-hourly-open');
   let nextHourlyForecastDateContainer = document.createElement('div');
     nextHourlyForecastDateContainer.setAttribute('id', 'next-hourly-forecast-date-container');
-    nextHourlyForecastDateContainer.classList.add('forecast-hourly-closed');
+    nextHourlyForecastDateContainer.classList.add('forecast-hourly-open');
   let nextHourlyForecastDateSvg = document.createElement('img');
     nextHourlyForecastDateSvg.setAttribute('id', 'next-hourly-forecast-date-svg');
-    nextHourlyForecastDateSvg.classList.add('forecast-hourly-item-closed');
+    nextHourlyForecastDateSvg.classList.add('forecast-hourly-item-open');
     nextHourlyForecastDateSvg.src = 'svgs/date.svg';
   let nextHourlyForecastDate = document.createElement('p');
     nextHourlyForecastDate.setAttribute('id', 'next-hourly-forecast-date');
-    nextHourlyForecastDate.classList.add('forecast-hourly-item-closed');
+    nextHourlyForecastDate.classList.add('forecast-hourly-item-open');
     nextHourlyForecastDate.textContent = `${date}`;
   let nextHourlyForecastTimeContainer = document.createElement('div');
     nextHourlyForecastTimeContainer.setAttribute('id', 'next-hourly-forecast-time-container');
-    nextHourlyForecastTimeContainer.classList.add('forecast-hourly-closed');
+    nextHourlyForecastTimeContainer.classList.add('forecast-hourly-open');
   let nextHourlyForecastTimeSvg = document.createElement('img');
     nextHourlyForecastTimeSvg.setAttribute('id', 'next-hourly-forecast-time-svg');
-    nextHourlyForecastTimeSvg.classList.add('forecast-hourly-item-closed');
+    nextHourlyForecastTimeSvg.classList.add('forecast-hourly-item-open');
     nextHourlyForecastTimeSvg.src = 'svgs/time.svg';
   let nextHourlyForecastTime = document.createElement('p');
     nextHourlyForecastTime.setAttribute('id', 'next-hourly-forecast-time');
-    nextHourlyForecastTime.classList.add('forecast-hourly-item-closed');
+    nextHourlyForecastTime.classList.add('forecast-hourly-item-open');
     nextHourlyForecastTime.textContent = `${time}`;
   let nextHourlyForecastTempContainer = document.createElement('div');
     nextHourlyForecastTempContainer.setAttribute('id', 'next-hourly-forecast-temp-container');
-    nextHourlyForecastTempContainer.classList.add('forecast-hourly-closed');
+    nextHourlyForecastTempContainer.classList.add('forecast-hourly-open');
   let nextHourlyForecastTempSvg = document.createElement('img');
     nextHourlyForecastTempSvg.setAttribute('id', 'next-hourly-forecast-temp-svg');
-    nextHourlyForecastTempSvg.classList.add('forecast-hourly-item-closed');
+    nextHourlyForecastTempSvg.classList.add('forecast-hourly-item-open');
     nextHourlyForecastTempSvg.src = 'svgs/temp.svg';
   let nextHourlyForecastTemp = document.createElement('p');
     nextHourlyForecastTemp.setAttribute('id', 'next-hourly-forecast-temp');
-    nextHourlyForecastTemp.classList.add('forecast-hourly-item-closed');
+    nextHourlyForecastTemp.classList.add('forecast-hourly-item-open');
     nextHourlyForecastTemp.textContent = `${temp} °F`;
   let nextHourlyForecastHumidityContainer = document.createElement('div');
     nextHourlyForecastHumidityContainer.setAttribute('id', 'next-hourly-forecast-humidity-container');
-    nextHourlyForecastHumidityContainer.classList.add('forecast-hourly-closed');
+    nextHourlyForecastHumidityContainer.classList.add('forecast-hourly-open');
   let nextHourlyForecastHumiditySvg = document.createElement('img');
     nextHourlyForecastHumiditySvg.setAttribute('id', 'next-hourly-forecast-humidity-svg');
-    nextHourlyForecastHumiditySvg.classList.add('forecast-hourly-item-closed');
+    nextHourlyForecastHumiditySvg.classList.add('forecast-hourly-item-open');
     nextHourlyForecastHumiditySvg.src = 'svgs/humidity.svg';
   let nextHourlyForecastHumidity = document.createElement('p');
     nextHourlyForecastHumidity.setAttribute('id', 'next-hourly-forecast-humidity');
-    nextHourlyForecastHumidity.classList.add('forecast-hourly-item-closed');
+    nextHourlyForecastHumidity.classList.add('forecast-hourly-item-open');
     nextHourlyForecastHumidity.textContent = `Humidity: ${humidity} %`;
   let nextHourlyForecastWeatherTypeContainer = document.createElement('div');
     nextHourlyForecastWeatherTypeContainer.setAttribute('id', 'next-hourly-forecast-weather-type-container');
-    nextHourlyForecastWeatherTypeContainer.classList.add('forecast-hourly-closed');
+    nextHourlyForecastWeatherTypeContainer.classList.add('forecast-hourly-open');
   let nextHourlyForecastWeatherTypeSvg = document.createElement('img');
     nextHourlyForecastWeatherTypeSvg.setAttribute('id', 'next-hourly-forecast-weather-type-svg');
-    nextHourlyForecastWeatherTypeSvg.classList.add('forecast-hourly-item-closed');
+    nextHourlyForecastWeatherTypeSvg.classList.add('forecast-hourly-item-open');
     nextHourlyForecastWeatherTypeSvg.src = '';
   let nextHourlyForecastWeatherType = document.createElement('p');
     nextHourlyForecastWeatherType.setAttribute('id', 'next-hourly-forecast-weather-type');
-    nextHourlyForecastWeatherType.classList.add('forecast-hourly-item-closed');
+    nextHourlyForecastWeatherType.classList.add('forecast-hourly-item-open');
     nextHourlyForecastWeatherType.textContent = `${weatherType}, ${weatherDescription}`;
   let nextHourlyForecastWindContainer = document.createElement('div');
     nextHourlyForecastWindContainer.setAttribute('id', 'next-hourly-forecast-wind-container');
-    nextHourlyForecastWindContainer.classList.add('forecast-hourly-closed');
+    nextHourlyForecastWindContainer.classList.add('forecast-hourly-open');
   let nextHourlyForecastWindSvg = document.createElement('img');
     nextHourlyForecastWindSvg.setAttribute('id', 'next-hourly-forecast-wind-svg');
-    nextHourlyForecastWindSvg.classList.add('forecast-hourly-item-closed');
+    nextHourlyForecastWindSvg.classList.add('forecast-hourly-item-open');
     nextHourlyForecastWindSvg.src = 'svgs/wind.svg';
   let nextHourlyForecastWind = document.createElement('p');
     nextHourlyForecastWind.setAttribute('id', 'next-hourly-forecast-wind');
-    nextHourlyForecastWind.classList.add('forecast-hourly-item-closed');
+    nextHourlyForecastWind.classList.add('forecast-hourly-item-open');
     nextHourlyForecastWind.textContent = `Wind Speed: ${windSpeed} MPH`;
 
   nextHourlyForecastDateContainer.appendChild(nextHourlyForecastDateSvg);
@@ -490,9 +506,63 @@ function appendDailyForecast(
 }
 
 function showHourlyForecast() {
-  console.log('hourly forecast is being requested');
+  const dailyForecastButton = document.querySelector('#daily-forecast-button');
+  const hourlyForecastButton = document.querySelector('#hourly-forecast-button');
+  const forecastDaily = document.querySelector('#forecast-daily');
+  const forecastHourly = document.querySelector('#forecast-hourly');
+
+  if (dailyForecastButton.classList.contains('daily-forecast-button-on')) {
+    dailyForecastButton.classList.remove('daily-forecast-button-on');
+    dailyForecastButton.classList.add('daily-forecast-button-off');
+    hourlyForecastButton.classList.add('hourly-forecast-button-on');
+    hourlyForecastButton.classList.remove('hourly-forecast-button-off');
+    forecastDaily.classList.remove('forecast-daily-on');
+    forecastDaily.classList.add('forecast-daily-off');
+    forecastHourly.classList.remove('forecast-hourly-off');
+    forecastHourly.classList.add('forecast-hourly-on');
+  } else if (hourlyForecastButton.classList.contains('hourly-forecast-button-on')) {
+    return;
+  } else {
+    return;
+  }
 }
 
 function showDailyForecast() {
-  console.log('daily forecast is being requested');
+  const dailyForecastButton = document.querySelector('#daily-forecast-button');
+  const hourlyForecastButton = document.querySelector('#hourly-forecast-button');
+  const forecastDaily = document.querySelector('#forecast-daily');
+  const forecastHourly = document.querySelector('#forecast-hourly');
+
+  if (dailyForecastButton.classList.contains('daily-forecast-button-on')) {
+    return;
+  } else if (hourlyForecastButton.classList.contains('hourly-forecast-button-on')) {
+    dailyForecastButton.classList.add('daily-forecast-button-on');
+    dailyForecastButton.classList.remove('daily-forecast-button-off');
+    hourlyForecastButton.classList.remove('hourly-forecast-button-on');
+    hourlyForecastButton.classList.add('hourly-forecast-button-off');
+    forecastDaily.classList.add('forecast-daily-on');
+    forecastDaily.classList.remove('forecast-daily-off');
+    forecastHourly.classList.add('forecast-hourly-off');
+    forecastHourly.classList.remove('forecast-hourly-on');
+  } else {
+    return;
+  }
+}
+
+function removePreviousInformation() {
+  const locationInformation = document.querySelector('#location-information');
+  const locationExtraInformation = document.querySelector('#location-extra-information');
+  const forecastHourly = document.querySelector('#forecast-hourly');
+  const forecastDaily = document.querySelector('#forecast-daily');
+
+  removeAllChildNodes(locationInformation);
+  removeAllChildNodes(locationExtraInformation);
+  removeAllChildNodes(forecastHourly);
+  removeAllChildNodes(forecastDaily);
+}
+
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
 }
