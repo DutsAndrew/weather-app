@@ -25,6 +25,7 @@ let retrievedCityLat;
 let retrievedCityLon;
 
 async function getCity() {
+  let corsBypass = 'https://cors-everywhere-me.herokuapp.com/';
   let searchedCity = document.getElementById('search-bar-input').value;
   let defaultCity = 'Reykjavík';
   if (searchedCity.length === 0) {
@@ -35,7 +36,7 @@ async function getCity() {
   let amountToRetrieve = '&limit=1';
   let language = '&lang=en';
   let apiKey = '&appid=6c89c21bfc11d403be41f489af3b2eae';
-  let searchCity = api + citySearch + searchedCity + amountToRetrieve + language + apiKey;
+  let searchCity = corsBypass + api + citySearch + searchedCity + amountToRetrieve + language + apiKey;
 
   try {
     const response = await fetch (searchCity, {mode: 'cors'});
@@ -52,13 +53,14 @@ async function getCity() {
 }
 
 async function getTodaysWeather() {
+  let corsBypass = 'https://cors-everywhere-me.herokuapp.com/';
   let api = 'https://api.openweathermap.org/data/2.5/weather?';
   let lat = `&lat=${retrievedCityLat}`;
   let lon = `&lon=${retrievedCityLon}`;
   let language = '&lang=en';
   let units = '&units=imperial';
   let apiKey = '&appid=6c89c21bfc11d403be41f489af3b2eae';
-  let searchWeather = api + lat + lon + apiKey + language + units;
+  let searchWeather = corsBypass + api + lat + lon + apiKey + language + units;
 
   try {
     const response = await fetch (searchWeather, {mode: 'cors'});
@@ -92,13 +94,14 @@ async function getTodaysWeather() {
 }
 
 async function getWeatherForecast() {
+  let corsBypass = 'https://cors-everywhere-me.herokuapp.com/';
   let api = 'https://api.openweathermap.org/data/2.5/forecast?';
   let lat = `&lat=${retrievedCityLat}`;
   let lon = `&lon=${retrievedCityLon}`;
   let language = '&lang=en';
   let units = '&units=imperial';
   let apiKey = '&appid=6c89c21bfc11d403be41f489af3b2eae';
-  let searchWeather = api + lat + lon + apiKey + language + units;
+  let searchWeather = corsBypass + api + lat + lon + apiKey + language + units;
 
   try {
     const response = await fetch (searchWeather, {mode: 'cors'});
