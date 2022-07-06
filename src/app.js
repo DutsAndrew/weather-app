@@ -1,24 +1,11 @@
-window.onload = () => {
-  getCity();
+export {
+  getCity,
+  removePreviousInformation,
+  showHourlyForecast,
+  showDailyForecast,
+  showFahrenheit,
+  showCelsius
 }
-
-(function attachEventListeners() {
-  const hourlyButton = document.querySelector('#hourly-forecast-button');
-    hourlyButton.addEventListener('click', showHourlyForecast);
-
-  const dailyButton = document.querySelector('#daily-forecast-button');
-    dailyButton.addEventListener('click', showDailyForecast);
-
-  const searchInput = document.querySelector('#search-bar-input');
-    searchInput.addEventListener('keypress', function(e) {
-      if (e.keyCode === 13) {
-        removePreviousInformation();
-        getCity();
-      } else {
-        return;
-      }
-    })
-})();
 
 let retrievedCityName;
 let retrievedCityLat;
@@ -132,7 +119,7 @@ function appendCurrentWeather(
       cityContainer.setAttribute('id', 'city-container');
     let citySvg = document.createElement('img');
       citySvg.setAttribute('id', 'city-svg');
-      citySvg.src = 'svgs/location.svg';
+      citySvg.src = '../src/svgs/location.svg';
     let city = document.createElement('p');
       city.setAttribute('id', 'city-name');
       city.textContent = `${retrievedCityName}, ${country}`;
@@ -140,7 +127,7 @@ function appendCurrentWeather(
       weatherDescriptionContainer.setAttribute('id', 'weather-description-container');
     let weatherDescriptionSvg = document.createElement('img');
       weatherDescriptionSvg.setAttribute('id', 'weather-description-svg');
-      weatherDescriptionSvg.src = 'svgs/weather.svg';
+      weatherDescriptionSvg.src = '../src/svgs/weather.svg';
     let weatherDescription = document.createElement('p');
       weatherDescription.setAttribute('id', 'weather-description');
       weatherDescription.textContent = `${weatherType}, ${description}`;
@@ -148,7 +135,7 @@ function appendCurrentWeather(
       weatherTemperatureContainer.setAttribute('id', 'weather-temperature-container');
     let weatherTemperatureSvg = document.createElement('img');
       weatherTemperatureSvg.setAttribute('id', 'weather-temperature-svg');
-      weatherTemperatureSvg.src = 'svgs/temp.svg';
+      weatherTemperatureSvg.src = '../src/svgs/temp.svg';
     let weatherTemperature = document.createElement('p');
       weatherTemperature.setAttribute('id', 'weather-temperature');
       weatherTemperature.textContent = `${temp} °F`;
@@ -156,7 +143,7 @@ function appendCurrentWeather(
       todaysDateContainer.setAttribute('id', 'todays-date-container');
     let todaysDateSvg = document.createElement('img');
       todaysDateSvg.setAttribute('id', 'todays-date-svg');
-      todaysDateSvg.src = 'svgs/date.svg';
+      todaysDateSvg.src = '../src/svgs/date.svg';
     let todaysDate = document.createElement('p');
       todaysDate.setAttribute('id', 'todays-date');
       todaysDate.textContent = `${today}`;
@@ -164,7 +151,7 @@ function appendCurrentWeather(
       todaysTimeContainer.setAttribute('id', 'todays-time-container');
     let todaysTimeSvg = document.createElement('img');
       todaysTimeSvg.setAttribute('id', 'todays-time-svg');
-      todaysTimeSvg.src = 'svgs/time.svg';
+      todaysTimeSvg.src = '../src/svgs/time.svg';
     let todaysTime = document.createElement('p');
       todaysTime.setAttribute('id', 'todays-time');
       todaysTime.textContent = `Updated: ${time}`;
@@ -190,7 +177,7 @@ function appendCurrentWeather(
       weatherFeelsLikeContainer.setAttribute('id', 'weather-feels-like-container');
     let weatherFeelsLikeSvg = document.createElement('img');
       weatherFeelsLikeSvg.setAttribute('id', 'weather-feels-like-svg');
-      weatherFeelsLikeSvg.src = 'svgs/feels-like.svg';
+      weatherFeelsLikeSvg.src = '../src/svgs/feels-like.svg';
     let weatherFeelsLike = document.createElement('p');
       weatherFeelsLike.setAttribute('id', 'weather-feels-like');
       weatherFeelsLike.textContent = `Feels Like: ${feelsLike} °F`;
@@ -198,7 +185,7 @@ function appendCurrentWeather(
       weatherHumidityContainer.setAttribute('id', 'weather-humidity-container');
     let weatherHumiditySvg = document.createElement('img');
       weatherHumiditySvg.setAttribute('id', 'weather-humidity-svg');
-      weatherHumiditySvg.src = 'svgs/humidity.svg';
+      weatherHumiditySvg.src = '../src/svgs/humidity.svg';
     let weatherHumidity = document.createElement('p');
       weatherHumidity.setAttribute('id', 'weather-humidity');
       weatherHumidity.textContent = `Humidity: ${humidity} %`;
@@ -206,7 +193,7 @@ function appendCurrentWeather(
       weatherMinContainer.setAttribute('id', 'weather-min-container');
     let weatherMinSvg = document.createElement('img');
       weatherMinSvg.setAttribute('id', 'weather-min-svg');
-      weatherMinSvg.src = 'svgs/temp-min.svg';
+      weatherMinSvg.src = '../src/svgs/temp-min.svg';
     let weatherMin = document.createElement('p');
       weatherMin.setAttribute('id', 'weather-min');
       weatherMin.textContent = `Temperature Low: ${tempMin} °F`;
@@ -214,7 +201,7 @@ function appendCurrentWeather(
       weatherMaxContainer.setAttribute('id', 'weather-max-container');
     let weatherMaxSvg = document.createElement('img');
       weatherMaxSvg.setAttribute('id', 'weather-max-svg');
-      weatherMaxSvg.src = 'svgs/temp-max.svg';
+      weatherMaxSvg.src = '../src/svgs/temp-max.svg';
     let weatherMax = document.createElement('p');
       weatherMax.setAttribute('id', 'weather-max');
       weatherMax.textContent = `Temperature High: ${tempMax} °F`;
@@ -222,7 +209,7 @@ function appendCurrentWeather(
       windSpeedContainer.setAttribute('id', 'wind-speed-container');
     let windSpeedSvg = document.createElement('img');
       windSpeedSvg.setAttribute('id', 'wind-speed-svg');
-      windSpeedSvg.src = 'svgs/wind.svg';
+      windSpeedSvg.src = '../src/svgs/wind.svg';
     let windSpeed = document.createElement('p');
       windSpeed.setAttribute('id', 'wind-speed');
       windSpeed.textContent = `Wind Speed: ${wind} MPH`;
@@ -322,7 +309,7 @@ function appendHourlyForecast(
   let nextHourlyForecastDateSvg = document.createElement('img');
     nextHourlyForecastDateSvg.setAttribute('id', 'next-hourly-forecast-date-svg');
     nextHourlyForecastDateSvg.classList.add('forecast-hourly-item-open');
-    nextHourlyForecastDateSvg.src = 'svgs/date.svg';
+    nextHourlyForecastDateSvg.src = '../src/svgs/date.svg';
   let nextHourlyForecastDate = document.createElement('p');
     nextHourlyForecastDate.setAttribute('id', 'next-hourly-forecast-date');
     nextHourlyForecastDate.classList.add('forecast-hourly-item-open');
@@ -333,7 +320,7 @@ function appendHourlyForecast(
   let nextHourlyForecastTimeSvg = document.createElement('img');
     nextHourlyForecastTimeSvg.setAttribute('id', 'next-hourly-forecast-time-svg');
     nextHourlyForecastTimeSvg.classList.add('forecast-hourly-item-open');
-    nextHourlyForecastTimeSvg.src = 'svgs/time.svg';
+    nextHourlyForecastTimeSvg.src = '../src/svgs/time.svg';
   let nextHourlyForecastTime = document.createElement('p');
     nextHourlyForecastTime.setAttribute('id', 'next-hourly-forecast-time');
     nextHourlyForecastTime.classList.add('forecast-hourly-item-open');
@@ -344,7 +331,7 @@ function appendHourlyForecast(
   let nextHourlyForecastTempSvg = document.createElement('img');
     nextHourlyForecastTempSvg.setAttribute('id', 'next-hourly-forecast-temp-svg');
     nextHourlyForecastTempSvg.classList.add('forecast-hourly-item-open');
-    nextHourlyForecastTempSvg.src = 'svgs/temp.svg';
+    nextHourlyForecastTempSvg.src = '../src/svgs/temp.svg';
   let nextHourlyForecastTemp = document.createElement('p');
     nextHourlyForecastTemp.setAttribute('id', 'next-hourly-forecast-temp');
     nextHourlyForecastTemp.classList.add('forecast-hourly-item-open');
@@ -355,7 +342,7 @@ function appendHourlyForecast(
   let nextHourlyForecastHumiditySvg = document.createElement('img');
     nextHourlyForecastHumiditySvg.setAttribute('id', 'next-hourly-forecast-humidity-svg');
     nextHourlyForecastHumiditySvg.classList.add('forecast-hourly-item-open');
-    nextHourlyForecastHumiditySvg.src = 'svgs/humidity.svg';
+    nextHourlyForecastHumiditySvg.src = '../src/svgs/humidity.svg';
   let nextHourlyForecastHumidity = document.createElement('p');
     nextHourlyForecastHumidity.setAttribute('id', 'next-hourly-forecast-humidity');
     nextHourlyForecastHumidity.classList.add('forecast-hourly-item-open');
@@ -366,7 +353,7 @@ function appendHourlyForecast(
   let nextHourlyForecastWeatherTypeSvg = document.createElement('img');
     nextHourlyForecastWeatherTypeSvg.setAttribute('id', 'next-hourly-forecast-weather-type-svg');
     nextHourlyForecastWeatherTypeSvg.classList.add('forecast-hourly-item-open');
-    nextHourlyForecastWeatherTypeSvg.src = 'svgs/weather.svg';
+    nextHourlyForecastWeatherTypeSvg.src = '../src/svgs/weather.svg';
   let nextHourlyForecastWeatherType = document.createElement('p');
     nextHourlyForecastWeatherType.setAttribute('id', 'next-hourly-forecast-weather-type');
     nextHourlyForecastWeatherType.classList.add('forecast-hourly-item-open');
@@ -377,7 +364,7 @@ function appendHourlyForecast(
   let nextHourlyForecastWindSvg = document.createElement('img');
     nextHourlyForecastWindSvg.setAttribute('id', 'next-hourly-forecast-wind-svg');
     nextHourlyForecastWindSvg.classList.add('forecast-hourly-item-open');
-    nextHourlyForecastWindSvg.src = 'svgs/wind.svg';
+    nextHourlyForecastWindSvg.src = '../src/svgs/wind.svg';
   let nextHourlyForecastWind = document.createElement('p');
     nextHourlyForecastWind.setAttribute('id', 'next-hourly-forecast-wind');
     nextHourlyForecastWind.classList.add('forecast-hourly-item-open');
@@ -425,7 +412,7 @@ function appendDailyForecast(
   let nextDailyForecastDateSvg = document.createElement('img');
     nextDailyForecastDateSvg.setAttribute('id', 'next-daily-forecast-date-svg');
     nextDailyForecastDateSvg.classList.add('forecast-daily-item-open');
-    nextDailyForecastDateSvg.src = 'svgs/date.svg';
+    nextDailyForecastDateSvg.src = '../src/svgs/date.svg';
   let nextDailyForecastDate = document.createElement('p');
     nextDailyForecastDate.setAttribute('id', 'next-daily-forecast-date');
     nextDailyForecastDate.classList.add('forecast-daily-item-open');
@@ -436,7 +423,7 @@ function appendDailyForecast(
   let nextDailyForecastTimeSvg = document.createElement('img');
     nextDailyForecastTimeSvg.setAttribute('id', 'next-daily-forecast-time-svg');
     nextDailyForecastTimeSvg.classList.add('forecast-daily-item-open');
-    nextDailyForecastTimeSvg.src = 'svgs/time.svg';
+    nextDailyForecastTimeSvg.src = '../src/svgs/time.svg';
   let nextDailyForecastTime = document.createElement('p');
     nextDailyForecastTime.setAttribute('id', 'next-daily-forecast-time');
     nextDailyForecastTime.classList.add('forecast-daily-item-open');
@@ -447,7 +434,7 @@ function appendDailyForecast(
   let nextDailyForecastTempSvg = document.createElement('img');
     nextDailyForecastTempSvg.setAttribute('id', 'next-daily-forecast-temp-svg');
     nextDailyForecastTempSvg.classList.add('forecast-daily-item-open');
-    nextDailyForecastTempSvg.src = 'svgs/temp.svg';
+    nextDailyForecastTempSvg.src = '../src/svgs/temp.svg';
   let nextDailyForecastTemp = document.createElement('p');
     nextDailyForecastTemp.setAttribute('id', 'next-daily-forecast-temp');
     nextDailyForecastTemp.classList.add('forecast-daily-item-open');
@@ -458,7 +445,7 @@ function appendDailyForecast(
   let nextDailyForecastHumiditySvg = document.createElement('img');
     nextDailyForecastHumiditySvg.setAttribute('id', 'next-daily-forecast-humidity-svg');
     nextDailyForecastHumiditySvg.classList.add('forecast-daily-item-open');
-    nextDailyForecastHumiditySvg.src = 'svgs/humidity.svg';
+    nextDailyForecastHumiditySvg.src = '../src/svgs/humidity.svg';
   let nextDailyForecastHumidity = document.createElement('p');
     nextDailyForecastHumidity.setAttribute('id', 'next-daily-forecast-humidity');
     nextDailyForecastHumidity.classList.add('forecast-daily-item-open');
@@ -469,7 +456,7 @@ function appendDailyForecast(
   let nextDailyForecastWeatherTypeSvg = document.createElement('img');
     nextDailyForecastWeatherTypeSvg.setAttribute('id', 'next-daily-forecast-weather-type-svg');
     nextDailyForecastWeatherTypeSvg.classList.add('forecast-daily-item-open');
-    nextDailyForecastWeatherTypeSvg.src = 'svgs/weather.svg';
+    nextDailyForecastWeatherTypeSvg.src = '../src/svgs/weather.svg';
   let nextDailyForecastWeatherType = document.createElement('p');
     nextDailyForecastWeatherType.setAttribute('id', 'next-daily-forecast-weather-type');
     nextDailyForecastWeatherType.classList.add('forecast-daily-item-open');
@@ -480,7 +467,7 @@ function appendDailyForecast(
   let nextDailyForecastWindSvg = document.createElement('img');
     nextDailyForecastWindSvg.setAttribute('id', 'next-daily-forecast-wind-svg');
     nextDailyForecastWindSvg.classList.add('forecast-daily-item-open');
-    nextDailyForecastWindSvg.src = 'svgs/wind.svg';
+    nextDailyForecastWindSvg.src = '../src/svgs/wind.svg';
   let nextDailyForecastWind = document.createElement('p');
     nextDailyForecastWind.setAttribute('id', 'next-daily-forecast-wind');
     nextDailyForecastWind.classList.add('forecast-daily-item-open');
@@ -567,4 +554,26 @@ function removeAllChildNodes(parent) {
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
   }
+}
+
+const farenheitToCelsius = function(f) {
+  let total;
+  total = (f-32) * 5/9
+  let rounded = Math.round(total * 10) / 10
+  return rounded;
+};
+
+const celsiusToFarenheit = function(c) {
+  let total;
+  total = c * (9/5) + 32
+  let rounded = Math.round(total * 10) / 10
+  return rounded;
+};
+
+function showFahrenheit() {
+  console.log('fahrenheit is requested');
+}
+
+function showCelsius() {
+  console.log('celsius is requested')
 }

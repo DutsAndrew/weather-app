@@ -5,16 +5,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather App</title>
-  <link rel="icon" type="image/png" href="svgs/logo.png">
-  <link rel="stylesheet" href="style.css">
-  <script src="app.js" defer></script>
+  <link rel="icon" type="image/png" href="../src/svgs/logo.png">
+  <script type="module" src="../src/index.js" defer></script>
+  <link rel="stylesheet" href="../src/style.css" type="text/css">
 </head>
 <body>
   <div id="background">
     <div id="header">
       <div id="header-left">
         <p id="header-title-first">Weather</p><p id="header-title-second">&nbspApp</p>
-        <img id="header-icon" src="svgs/logo.png">
+        <img id="header-icon" src="../src/svgs/logo.png">
       </div>
       <div id="header-right">
         <label>
@@ -32,9 +32,11 @@
         </div>
       </div>
       <div id="app-bottom">
-        <div id="forecast-switcher">
+        <div id="information-switcher">
           <button id="daily-forecast-button" class="daily-forecast-button-on">Daily</button>
           <button id="hourly-forecast-button" class="hourly-forecast-button-off">Hourly</button>
+          <button id="fahrenheit-button" class="fahrenheit-on">Fahrenheit</button>
+          <button id="celsius-button" class="celsius-off">Celsius</button>
         </div>
         <div id="forecast-hourly" class="forecast-hourly-off"></div>
         <div id="forecast-daily" class="forecast-daily-on"></div>

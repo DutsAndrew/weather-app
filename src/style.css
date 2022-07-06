@@ -185,7 +185,7 @@ label:before {
   align-items: flex-start;
 }
 
-#forecast-switcher {
+#information-switcher {
   display: flex;
   width: 10vw;
   height: 3.5vh;
@@ -196,13 +196,17 @@ label:before {
   padding-left: 2.75%;
 }
 
-#daily-forecast-button, #hourly-forecast-button {
-  width: 5vw;
+#daily-forecast-button, #hourly-forecast-button, #fahrenheit-button, #celsius-button {
+  width: 8vw;
   height: 3.5vh;
   font-size: 1em;
   font-weight: bolder;
   border-radius: 10%;
   margin-left: 3%;
+}
+
+#fahrenheit-button {
+  margin-left: 1vw;
 }
 
 .daily-forecast-button-off {
@@ -225,6 +229,28 @@ label:before {
   background-color: #438ccc;
   color: rgb(240, 242, 240, 0.8);
   border: 1px solid rgb(240, 242, 240, 0.9);
+}
+
+.celsius-off {
+  background-color: rgb(240, 242, 240, 0.9);
+  color: #438ccc;
+}
+
+.fahrenheit-off {
+  background-color: rgb(240, 242, 240, 0.9);
+  color: #f3ac4c;
+}
+
+.celsius-on {
+  background-color: #438ccc;
+  color: rgb(240, 242, 240, 0.8);
+  border: 1px solid rgb(240, 242, 240, 0.9);
+}
+
+.fahrenheit-on {
+  background-color: #f3ac4c;
+  border: 1px solid rgb(240, 242, 240, 0.9);
+  color: rgb(240, 242, 240, 0.8);;
 }
 
 .forecast-hourly-off {
