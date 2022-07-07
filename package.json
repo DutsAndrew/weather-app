@@ -39,5 +39,6 @@
     "gh-pages": "^4.0.0",
     "lodash": "^4.17.21",
     "style-loader": "^3.3.1"
-  }
+  },
+  "homepage": "https://dutsandrew.github.io/weather-app/"
 }

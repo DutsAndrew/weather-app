@@ -9,6 +9,8 @@ import {
   showCelsius
  } from './scripts/app.js';
 
+ import './style.css'
+
 import { loadMeasurementAlert } from './scripts/sessionStorage.js';
 
 window.onload = () => {
