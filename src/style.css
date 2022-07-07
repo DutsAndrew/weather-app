@@ -5,7 +5,7 @@ body {
 }
 
 #background {
-  background-image: url(./imgs/mountain-lake.jpg);
+  background-image: url('./imgs/mountain-lake.jpg');
   background-size: cover;
   width: 100vw;
   height: 100vh;
@@ -64,7 +64,7 @@ label:before {
   top: 0;
   bottom: 0;
   width: 1.5em;
-  background: url(svgs/search.svg) center / contain no-repeat;
+  background: url('./svgs/search.svg') center / contain no-repeat;
   filter: invert(79%) sepia(72%) saturate(913%) hue-rotate(323deg) brightness(101%) contrast(91%);
 }
 
