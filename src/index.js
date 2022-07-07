@@ -5,10 +5,13 @@ import {
   showDailyForecast,
   showFahrenheit,
   showCelsius
- } from './app.js';
+ } from './scripts/app.js';
+
+import { loadMeasurementAlert } from './scripts/sessionStorage.js';
 
 window.onload = () => {
   getCity();
+  loadMeasurementAlert();
 }
 
 (function attachEventListeners() {
@@ -21,8 +24,8 @@ window.onload = () => {
   const fahrenheitButton = document.querySelector('#fahrenheit-button');
     fahrenheitButton.addEventListener('click', showFahrenheit);
   
-  const celsisusButton = document.querySelector('#celsius-button');
-    celsisusButton.addEventListener('click', showCelsius);
+  const celsiusButton = document.querySelector('#celsius-button');
+    celsiusButton.addEventListener('click', showCelsius);
 
   const searchInput = document.querySelector('#search-bar-input');
     searchInput.addEventListener('keypress', function(e) {

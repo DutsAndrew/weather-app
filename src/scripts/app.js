@@ -54,15 +54,30 @@ async function getTodaysWeather() {
     const searchData = await response.json();
     
     // variables for information to be appended to the DOM for weather display
-    let temp = searchData.main.temp;
+    let temp;
     let weatherType = searchData.weather[0].main;
     let description = searchData.weather[0].description;
     let country = searchData.sys.country;
-    let feelsLike = searchData.main.feels_like;
+    let feelsLike;
     let humidity = searchData.main.humidity;
-    let tempMin = searchData.main.temp_min;
-    let tempMax = searchData.main.temp_max;
+    let tempMin;
+    let tempMax;
     let wind = searchData.wind.speed;
+
+    //checks if celsius button is on for conversion
+    const celsiusButton = document.querySelector('#celsius-button');
+    if (celsiusButton.classList.contains('celsius-on')) {
+      temp = fahrenheitToCelsius(searchData.main.temp);
+      feelsLike = fahrenheitToCelsius(searchData.main.feels_like);
+      tempMin = fahrenheitToCelsius(searchData.main.temp_min);
+      tempMax = fahrenheitToCelsius(searchData.main.temp_max);
+    } else {
+      temp = searchData.main.temp;
+      feelsLike = searchData.main.feels_like;
+      tempMin = searchData.main.temp_min;
+      tempMax = searchData.main.temp_max;
+    }
+
     appendCurrentWeather(
       temp,
       weatherType,
@@ -74,6 +89,7 @@ async function getTodaysWeather() {
       tempMax,
       wind
     );
+
   } catch (error) {
     console.log(error);
     alert('The server could not find what you were looking for, please try again');
@@ -138,7 +154,6 @@ function appendCurrentWeather(
       weatherTemperatureSvg.src = '../src/svgs/temp.svg';
     let weatherTemperature = document.createElement('p');
       weatherTemperature.setAttribute('id', 'weather-temperature');
-      weatherTemperature.textContent = `${temp} °F`;
     let todaysDateContainer = document.createElement('div');
       todaysDateContainer.setAttribute('id', 'todays-date-container');
     let todaysDateSvg = document.createElement('img');
@@ -155,6 +170,14 @@ function appendCurrentWeather(
     let todaysTime = document.createElement('p');
       todaysTime.setAttribute('id', 'todays-time');
       todaysTime.textContent = `Updated: ${time}`;
+
+    //checks if celsius button is on for conversion
+    const celsiusButton = document.querySelector('#celsius-button');
+    if (celsiusButton.classList.contains('celsius-on')) {
+      weatherTemperature.textContent = `${temp} °C`;
+    } else {
+      weatherTemperature.textContent = `${temp} °F`;
+    }
 
     cityContainer.appendChild(citySvg);
     cityContainer.appendChild(city);
@@ -180,7 +203,6 @@ function appendCurrentWeather(
       weatherFeelsLikeSvg.src = '../src/svgs/feels-like.svg';
     let weatherFeelsLike = document.createElement('p');
       weatherFeelsLike.setAttribute('id', 'weather-feels-like');
-      weatherFeelsLike.textContent = `Feels Like: ${feelsLike} °F`;
     let weatherHumidityContainer = document.createElement('div');
       weatherHumidityContainer.setAttribute('id', 'weather-humidity-container');
     let weatherHumiditySvg = document.createElement('img');
@@ -196,7 +218,6 @@ function appendCurrentWeather(
       weatherMinSvg.src = '../src/svgs/temp-min.svg';
     let weatherMin = document.createElement('p');
       weatherMin.setAttribute('id', 'weather-min');
-      weatherMin.textContent = `Temperature Low: ${tempMin} °F`;
     let weatherMaxContainer = document.createElement('div');
       weatherMaxContainer.setAttribute('id', 'weather-max-container');
     let weatherMaxSvg = document.createElement('img');
@@ -204,7 +225,6 @@ function appendCurrentWeather(
       weatherMaxSvg.src = '../src/svgs/temp-max.svg';
     let weatherMax = document.createElement('p');
       weatherMax.setAttribute('id', 'weather-max');
-      weatherMax.textContent = `Temperature High: ${tempMax} °F`;
     let windSpeedContainer = document.createElement('div');
       windSpeedContainer.setAttribute('id', 'wind-speed-container');
     let windSpeedSvg = document.createElement('img');
@@ -213,6 +233,17 @@ function appendCurrentWeather(
     let windSpeed = document.createElement('p');
       windSpeed.setAttribute('id', 'wind-speed');
       windSpeed.textContent = `Wind Speed: ${wind} MPH`;
+
+    // controls for celsius conversion
+    if (celsiusButton.classList.contains('celsius-on')) {
+      weatherFeelsLike.textContent = `Feels Like: ${feelsLike} °C`;
+      weatherMin.textContent = `Low: ${tempMin} °C`;
+      weatherMax.textContent = `High: ${tempMax} °C`;
+    } else {
+      weatherFeelsLike.textContent = `Feels Like: ${feelsLike} °F`;
+      weatherMin.textContent = `Low: ${tempMin} °F`;
+      weatherMax.textContent = `High: ${tempMax} °F`;
+    }
 
     weatherFeelsLikeContainer.appendChild(weatherFeelsLikeSvg);
     weatherFeelsLikeContainer.appendChild(weatherFeelsLike);
@@ -238,6 +269,7 @@ function convertDate(date) {
 }
 
 function bundleForecastData(forecastList) {
+  const celsiusButton = document.querySelector('#celsius-button');
 
   // Hourly forecast bundle
   let next21Hours = forecastList.slice(0, 7);
@@ -249,6 +281,13 @@ function bundleForecastData(forecastList) {
     let weatherType = item.weather[0].main;
     let weatherDescription = item.weather[0].description;
     let windSpeed = item.wind.speed;
+
+    //checks if celsius button is on for conversion
+    if (celsiusButton.classList.contains('celsius-on')) {
+      temp = fahrenheitToCelsius(item.main.temp);
+    } else {
+      temp = item.main.temp;
+    }
 
     appendHourlyForecast(
       date,
@@ -277,6 +316,13 @@ function bundleForecastData(forecastList) {
     let weatherType = item[0].weather[0].main;
     let weatherDescription = item[0].weather[0].description;
     let windSpeed = item[0].wind.speed;
+
+    //checks if celsius button is on for conversion
+    if (celsiusButton.classList.contains('celsius-on')) {
+      temp = fahrenheitToCelsius(item[0].main.temp);
+    } else {
+      temp = item[0].main.temp;
+    }
 
     appendDailyForecast(
       date,
@@ -335,7 +381,6 @@ function appendHourlyForecast(
   let nextHourlyForecastTemp = document.createElement('p');
     nextHourlyForecastTemp.setAttribute('id', 'next-hourly-forecast-temp');
     nextHourlyForecastTemp.classList.add('forecast-hourly-item-open');
-    nextHourlyForecastTemp.textContent = `${temp} °F`;
   let nextHourlyForecastHumidityContainer = document.createElement('div');
     nextHourlyForecastHumidityContainer.setAttribute('id', 'next-hourly-forecast-humidity-container');
     nextHourlyForecastHumidityContainer.classList.add('forecast-hourly-open');
@@ -369,6 +414,14 @@ function appendHourlyForecast(
     nextHourlyForecastWind.setAttribute('id', 'next-hourly-forecast-wind');
     nextHourlyForecastWind.classList.add('forecast-hourly-item-open');
     nextHourlyForecastWind.textContent = `Wind Speed: ${windSpeed} MPH`;
+
+  //checks if celsius button is on for conversion
+  const celsiusButton = document.querySelector('#celsius-button');
+  if (celsiusButton.classList.contains('celsius-on')) {
+    nextHourlyForecastTemp.textContent = `${temp} °C`;
+  } else {
+    nextHourlyForecastTemp.textContent = `${temp} °F`;
+  }
 
   nextHourlyForecastDateContainer.appendChild(nextHourlyForecastDateSvg);
   nextHourlyForecastDateContainer.appendChild(nextHourlyForecastDate);
@@ -438,7 +491,6 @@ function appendDailyForecast(
   let nextDailyForecastTemp = document.createElement('p');
     nextDailyForecastTemp.setAttribute('id', 'next-daily-forecast-temp');
     nextDailyForecastTemp.classList.add('forecast-daily-item-open');
-    nextDailyForecastTemp.textContent = `${temp} °F`;
   let nextDailyForecastHumidityContainer = document.createElement('div');
     nextDailyForecastHumidityContainer.setAttribute('id', 'next-daily-forecast-humidity-container');
     nextDailyForecastHumidityContainer.classList.add('forecast-daily-open');
@@ -472,6 +524,14 @@ function appendDailyForecast(
     nextDailyForecastWind.setAttribute('id', 'next-daily-forecast-wind');
     nextDailyForecastWind.classList.add('forecast-daily-item-open');
     nextDailyForecastWind.textContent = `Wind Speed: ${windSpeed} MPH`;
+
+  //checks if celsius button is on for conversion
+  const celsiusButton = document.querySelector('#celsius-button');
+  if (celsiusButton.classList.contains('celsius-on')) {
+    nextDailyForecastTemp.textContent = `${temp} °C`;
+  } else {
+    nextDailyForecastTemp.textContent = `${temp} °F`;
+  }
 
   nextDailyForecastDateContainer.appendChild(nextDailyForecastDateSvg);
   nextDailyForecastDateContainer.appendChild(nextDailyForecastDate);
@@ -556,24 +616,55 @@ function removeAllChildNodes(parent) {
   }
 }
 
-const farenheitToCelsius = function(f) {
-  let total;
-  total = (f-32) * 5/9
-  let rounded = Math.round(total * 10) / 10
-  return rounded;
-};
-
-const celsiusToFarenheit = function(c) {
-  let total;
-  total = c * (9/5) + 32
-  let rounded = Math.round(total * 10) / 10
-  return rounded;
-};
-
 function showFahrenheit() {
-  console.log('fahrenheit is requested');
+  const fahrenheitButton = document.querySelector('#fahrenheit-button');
+  const celsiusButton = document.querySelector('#celsius-button');
+
+  // informs user on when to expect to see the celsius/fahrenheit reading change. It only shows it once per session
+  let firstAlert = sessionStorage.getItem('first-alert');
+  if (firstAlert === 'true') {
+    alert('When changing between celsius and fahrenheit, the temperature readings will change on your next search');
+    sessionStorage.setItem('first-alert', 'false');
+  }
+
+  if (fahrenheitButton.classList.contains('fahrenheit-on')) {
+    return;
+  } else if (fahrenheitButton.classList.contains('fahrenheit-off')) {
+    fahrenheitButton.classList.remove('fahrenheit-off');
+    fahrenheitButton.classList.add('fahrenheit-on');
+    celsiusButton.classList.remove('celsius-on');
+    celsiusButton.classList.add('celsius-off');
+  } else {
+    return;
+  }
 }
 
 function showCelsius() {
-  console.log('celsius is requested')
+  const fahrenheitButton = document.querySelector('#fahrenheit-button');
+  const celsiusButton = document.querySelector('#celsius-button');
+
+  // informs user on when to expect to see the celsius/fahrenheit reading change. It only shows it once per session
+  let firstAlert = sessionStorage.getItem('first-alert');
+  if (firstAlert === 'true') {
+    alert('When changing between celsius and fahrenheit, the temperature readings will change on your next search');
+    sessionStorage.setItem('first-alert', 'false');
+  }
+  
+  if (celsiusButton.classList.contains('celsius-on')) {
+    return;
+  } else if (celsiusButton.classList.contains('celsius-off')) {
+    celsiusButton.classList.remove('celsius-off');
+    celsiusButton.classList.add('celsius-on');
+    fahrenheitButton.classList.add('fahrenheit-off');
+    fahrenheitButton.classList.remove('fahrenheit-on');
+  } else {
+    return;
+  }
+}
+
+function fahrenheitToCelsius(number) {
+  let total = (number-32) * 5/9
+  let rounded = Math.round(total * 10) / 10;
+  number = rounded;
+  return number;
 }
