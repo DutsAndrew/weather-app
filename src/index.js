@@ -1,3 +1,5 @@
+require.context("/src/imgs/", true, /\.(png|svg|jpg|gif)$/);
+
 import { 
   getCity,
   removePreviousInformation,
