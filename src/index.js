@@ -1,3 +1,5 @@
+import './style.css';
+
 require.context("/src/svgs/", true, /\.(png|svg|jpg|gif)$/);
 
 import { 
@@ -8,8 +10,6 @@ import {
   showFahrenheit,
   showCelsius
  } from './scripts/app.js';
-
- import './style.css'
 
 import { loadMeasurementAlert } from './scripts/sessionStorage.js';
 
