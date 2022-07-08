@@ -5,7 +5,7 @@ body {
 }
 
 #background {
-  background-image: url('../src/imgs/mountain-lake.jpg');
+  background-image: url('./imgs/mountain-lake.jpg');
   background-size: cover;
   width: 100vw;
   height: 100vh;
