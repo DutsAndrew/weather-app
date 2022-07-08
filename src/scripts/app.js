@@ -143,7 +143,7 @@ function appendCurrentWeather(
       weatherDescriptionContainer.setAttribute('id', 'weather-description-container');
     let weatherDescriptionSvg = document.createElement('img');
       weatherDescriptionSvg.setAttribute('id', 'weather-description-svg');
-      weatherDescriptionSvg.src = '/src/svgs/weather.svg';
+      weatherDescriptionSvg.src = '../src/svgs/weather.svg';
     let weatherDescription = document.createElement('p');
       weatherDescription.setAttribute('id', 'weather-description');
       weatherDescription.textContent = `${weatherType}, ${description}`;

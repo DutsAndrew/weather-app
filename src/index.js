@@ -1,6 +1,5 @@
 require.context("/src/imgs/", true, /\.(png|svg|jpg|gif)$/);
 require.context("/src/svgs/", true, /\.(png|svg|jpg|gif)$/);
-import './style.css';
 
 import { 
   getCity,
