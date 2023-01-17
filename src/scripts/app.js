@@ -24,22 +24,20 @@ let retrievedCityLat;
 let retrievedCityLon;
 
 async function getCity() {
-  let corsBypass = 'https://cors-everywhere-me.herokuapp.com/';
-  let searchedCity = document.getElementById('search-bar-input').value;
-  let defaultCity = 'Reykjavík';
-  if (searchedCity.length === 0) {
-    searchedCity = defaultCity;
+  let cityInput = document.getElementById('search-bar-input').value,
+        defaultCity = 'Reykjavík';
+  if (cityInput.length === 0) {
+    cityInput = defaultCity;
   }
-  let citySearch = 'q=';
-  let api = 'http://api.openweathermap.org/geo/1.0/direct?';
-  let amountToRetrieve = '&limit=1';
-  let language = '&lang=en';
-  let apiKey = '&appid=6c89c21bfc11d403be41f489af3b2eae';
-  let searchCity = corsBypass + api + citySearch + searchedCity + amountToRetrieve + language + apiKey;
+  const api = 'https://api.openweathermap.org/geo/1.0/direct?q=',
+        amountToRetrieve = '&limit=1',
+        apiKey = '&appid=6c89c21bfc11d403be41f489af3b2eae',
+        searchCity = api + cityInput + amountToRetrieve + apiKey;
 
   try {
-    const response = await fetch (searchCity, {mode: 'cors'});
-    const searchData = await response.json();
+    const response = await fetch (searchCity),
+          searchData = await response.json();
+
     retrievedCityName = searchData[0].local_names.en;
     retrievedCityLat = searchData[0].lat;
     retrievedCityLon = searchData[0].lon;
@@ -52,29 +50,28 @@ async function getCity() {
 }
 
 async function getTodaysWeather() {
-  let corsBypass = 'https://cors-everywhere-me.herokuapp.com/';
-  let api = 'https://api.openweathermap.org/data/2.5/weather?';
-  let lat = `&lat=${retrievedCityLat}`;
-  let lon = `&lon=${retrievedCityLon}`;
-  let language = '&lang=en';
-  let units = '&units=imperial';
-  let apiKey = '&appid=6c89c21bfc11d403be41f489af3b2eae';
-  let searchWeather = corsBypass + api + lat + lon + apiKey + language + units;
+  const api = 'https://api.openweathermap.org/data/2.5/weather?',
+        lat = `&lat=${retrievedCityLat}`,
+        lon = `&lon=${retrievedCityLon}`,
+        units = '&units=imperial',
+        apiKey = '&appid=6c89c21bfc11d403be41f489af3b2eae',
+        searchWeather = api + lat + lon + apiKey + units;
 
   try {
     const response = await fetch (searchWeather, {mode: 'cors'});
     const searchData = await response.json();
     
     // variables for information to be appended to the DOM for weather display
-    let temp;
-    let weatherType = searchData.weather[0].main;
-    let description = searchData.weather[0].description;
-    let country = searchData.sys.country;
-    let feelsLike;
-    let humidity = searchData.main.humidity;
-    let tempMin;
-    let tempMax;
-    let wind = searchData.wind.speed;
+    const weatherType = searchData.weather[0].main,
+          description = searchData.weather[0].description,
+          country = searchData.sys.country,
+          humidity = searchData.main.humidity,
+          wind = searchData.wind.speed;
+
+    let temp,
+        feelsLike,
+        tempMin,
+        tempMax;  
 
     //checks if celsius button is on for conversion
     const celsiusButton = document.querySelector('#celsius-button');
@@ -109,19 +106,19 @@ async function getTodaysWeather() {
 }
 
 async function getWeatherForecast() {
-  let corsBypass = 'https://cors-everywhere-me.herokuapp.com/';
-  let api = 'https://api.openweathermap.org/data/2.5/forecast?';
-  let lat = `&lat=${retrievedCityLat}`;
-  let lon = `&lon=${retrievedCityLon}`;
-  let language = '&lang=en';
-  let units = '&units=imperial';
-  let apiKey = '&appid=6c89c21bfc11d403be41f489af3b2eae';
-  let searchWeather = corsBypass + api + lat + lon + apiKey + language + units;
+  const api = 'https://api.openweathermap.org/data/2.5/forecast?',
+        lat = `&lat=${retrievedCityLat}`,
+        lon = `&lon=${retrievedCityLon}`,
+        language = '&lang=en',
+        units = '&units=imperial',
+        apiKey = '&appid=6c89c21bfc11d403be41f489af3b2eae',
+        searchWeather = api + lat + lon + apiKey + language + units;
 
   try {
-    const response = await fetch (searchWeather, {mode: 'cors'});
-    const searchData = await response.json();
-    let forecastList = searchData.list;
+    const response = await fetch (searchWeather, {mode: 'cors'}),
+          searchData = await response.json(),
+          forecastList = searchData.list;
+
     bundleForecastData(forecastList);
   } catch (error) {
     console.log(error);
@@ -143,43 +140,43 @@ function appendCurrentWeather(
     let today = new Date().toDateString();
     let time = new Date().toLocaleTimeString();
     const locationInformation = document.querySelector('#location-information');
-    let cityContainer = document.createElement('div');
+    const cityContainer = document.createElement('div');
       cityContainer.setAttribute('id', 'city-container');
-    let citySvg = document.createElement('img');
+    const citySvg = document.createElement('img');
       citySvg.setAttribute('id', 'city-svg');
       citySvg.src = locationSvgImport;
-    let city = document.createElement('p');
+    const city = document.createElement('p');
       city.setAttribute('id', 'city-name');
       city.textContent = `${retrievedCityName}, ${country}`;
-    let weatherDescriptionContainer = document.createElement('div');
+    const weatherDescriptionContainer = document.createElement('div');
       weatherDescriptionContainer.setAttribute('id', 'weather-description-container');
-    let weatherDescriptionSvg = document.createElement('img');
+    const weatherDescriptionSvg = document.createElement('img');
       weatherDescriptionSvg.setAttribute('id', 'weather-description-svg');
       weatherDescriptionSvg.src = weatherSvgImport;
-    let weatherDescription = document.createElement('p');
+    const weatherDescription = document.createElement('p');
       weatherDescription.setAttribute('id', 'weather-description');
       weatherDescription.textContent = `${weatherType}, ${description}`;
-    let weatherTemperatureContainer = document.createElement('div');
+    const weatherTemperatureContainer = document.createElement('div');
       weatherTemperatureContainer.setAttribute('id', 'weather-temperature-container');
-    let weatherTemperatureSvg = document.createElement('img');
+    const weatherTemperatureSvg = document.createElement('img');
       weatherTemperatureSvg.setAttribute('id', 'weather-temperature-svg');
       weatherTemperatureSvg.src = tempSvgImport;
-    let weatherTemperature = document.createElement('p');
+    const weatherTemperature = document.createElement('p');
       weatherTemperature.setAttribute('id', 'weather-temperature');
-    let todaysDateContainer = document.createElement('div');
+    const todaysDateContainer = document.createElement('div');
       todaysDateContainer.setAttribute('id', 'todays-date-container');
-    let todaysDateSvg = document.createElement('img');
+    const todaysDateSvg = document.createElement('img');
       todaysDateSvg.setAttribute('id', 'todays-date-svg');
       todaysDateSvg.src = dateSvgImport;
-    let todaysDate = document.createElement('p');
+    const todaysDate = document.createElement('p');
       todaysDate.setAttribute('id', 'todays-date');
       todaysDate.textContent = `${today}`;
-    let todaysTimeContainer = document.createElement('div');
+    const todaysTimeContainer = document.createElement('div');
       todaysTimeContainer.setAttribute('id', 'todays-time-container');
-    let todaysTimeSvg = document.createElement('img');
+    const todaysTimeSvg = document.createElement('img');
       todaysTimeSvg.setAttribute('id', 'todays-time-svg');
       todaysTimeSvg.src = timeSvgImport;
-    let todaysTime = document.createElement('p');
+    const todaysTime = document.createElement('p');
       todaysTime.setAttribute('id', 'todays-time');
       todaysTime.textContent = `Updated: ${time}`;
 
@@ -208,41 +205,41 @@ function appendCurrentWeather(
     locationInformation.appendChild(todaysTimeContainer);
 
     const locationExtraInformation = document.querySelector('#location-extra-information');
-    let weatherFeelsLikeContainer = document.createElement('div');
+    const weatherFeelsLikeContainer = document.createElement('div');
       weatherFeelsLikeContainer.setAttribute('id', 'weather-feels-like-container');
-    let weatherFeelsLikeSvg = document.createElement('img');
+    const weatherFeelsLikeSvg = document.createElement('img');
       weatherFeelsLikeSvg.setAttribute('id', 'weather-feels-like-svg');
       weatherFeelsLikeSvg.src = feelsLikeSvgImport;
-    let weatherFeelsLike = document.createElement('p');
+    const weatherFeelsLike = document.createElement('p');
       weatherFeelsLike.setAttribute('id', 'weather-feels-like');
-    let weatherHumidityContainer = document.createElement('div');
+    const weatherHumidityContainer = document.createElement('div');
       weatherHumidityContainer.setAttribute('id', 'weather-humidity-container');
-    let weatherHumiditySvg = document.createElement('img');
+    const weatherHumiditySvg = document.createElement('img');
       weatherHumiditySvg.setAttribute('id', 'weather-humidity-svg');
       weatherHumiditySvg.src = humiditySvgImport;
-    let weatherHumidity = document.createElement('p');
+    const weatherHumidity = document.createElement('p');
       weatherHumidity.setAttribute('id', 'weather-humidity');
       weatherHumidity.textContent = `Humidity: ${humidity} %`;
-    let weatherMinContainer = document.createElement('div');
+    const weatherMinContainer = document.createElement('div');
       weatherMinContainer.setAttribute('id', 'weather-min-container');
-    let weatherMinSvg = document.createElement('img');
+    const weatherMinSvg = document.createElement('img');
       weatherMinSvg.setAttribute('id', 'weather-min-svg');
       weatherMinSvg.src = tempMinSvgImport;
-    let weatherMin = document.createElement('p');
+    const weatherMin = document.createElement('p');
       weatherMin.setAttribute('id', 'weather-min');
-    let weatherMaxContainer = document.createElement('div');
+    const weatherMaxContainer = document.createElement('div');
       weatherMaxContainer.setAttribute('id', 'weather-max-container');
-    let weatherMaxSvg = document.createElement('img');
+    const weatherMaxSvg = document.createElement('img');
       weatherMaxSvg.setAttribute('id', 'weather-max-svg');
       weatherMaxSvg.src = tempMaxSvgImport;
-    let weatherMax = document.createElement('p');
+    const weatherMax = document.createElement('p');
       weatherMax.setAttribute('id', 'weather-max');
-    let windSpeedContainer = document.createElement('div');
+    const windSpeedContainer = document.createElement('div');
       windSpeedContainer.setAttribute('id', 'wind-speed-container');
-    let windSpeedSvg = document.createElement('img');
+    const windSpeedSvg = document.createElement('img');
       windSpeedSvg.setAttribute('id', 'wind-speed-svg');
       windSpeedSvg.src = windSvgImport;
-    let windSpeed = document.createElement('p');
+    const windSpeed = document.createElement('p');
       windSpeed.setAttribute('id', 'wind-speed');
       windSpeed.textContent = `Wind Speed: ${wind} MPH`;
 
@@ -284,15 +281,17 @@ function bundleForecastData(forecastList) {
   const celsiusButton = document.querySelector('#celsius-button');
 
   // Hourly forecast bundle
-  let next21Hours = forecastList.slice(0, 7);
+  const next21Hours = forecastList.slice(0, 7);
   next21Hours.forEach(item => {
-    let date = convertDate(item.dt_txt.slice(0, 10));
-    let time = item.dt_txt.slice(11, 19);
+    const date = convertDate(item.dt_txt.slice(0, 10)),
+          time = item.dt_txt.slice(11, 19),
+          humidity = item.main.humidity,
+          weatherType = item.weather[0].main,
+          weatherDescription = item.weather[0].description,
+          windSpeed = item.wind.speed;
+
     let temp = item.main.temp;
-    let humidity = item.main.humidity;
-    let weatherType = item.weather[0].main;
-    let weatherDescription = item.weather[0].description;
-    let windSpeed = item.wind.speed;
+
 
     //checks if celsius button is on for conversion
     if (celsiusButton.classList.contains('celsius-on')) {
@@ -313,21 +312,24 @@ function bundleForecastData(forecastList) {
   })
   
   // Daily forecast bundle
-  let dailyForecast = [];
-  let nextDay = forecastList.slice(7, 8);
-  let secondDay = forecastList.slice(15, 16)
-  let thirdDay = forecastList.slice(23, 24);
-  let fourthDay = forecastList.slice(31, 32);
-  let fifthDay = forecastList.slice(39, 40);
+  const dailyForecast = [],
+        nextDay = forecastList.slice(7, 8),
+        secondDay = forecastList.slice(15, 16),
+        thirdDay = forecastList.slice(23, 24),
+        fourthDay = forecastList.slice(31, 32),
+        fifthDay = forecastList.slice(39, 40);
+
   dailyForecast.push(nextDay, secondDay, thirdDay, fourthDay, fifthDay);
   dailyForecast.forEach(item => {
-    let date = convertDate(item[0].dt_txt.slice(0, 10));
-    let time = item[0].dt_txt.slice(11, 19);
+
+    const date = convertDate(item[0].dt_txt.slice(0, 10)),
+          time = item[0].dt_txt.slice(11, 19),
+          humidity = item[0].main.humidity,
+          weatherType = item[0].weather[0].main,
+          weatherDescription = item[0].weather[0].description,
+          windSpeed = item[0].wind.speed;
+
     let temp = item[0].main.temp;
-    let humidity = item[0].main.humidity;
-    let weatherType = item[0].weather[0].main;
-    let weatherDescription = item[0].weather[0].description;
-    let windSpeed = item[0].wind.speed;
 
     //checks if celsius button is on for conversion
     if (celsiusButton.classList.contains('celsius-on')) {
@@ -358,71 +360,71 @@ function appendHourlyForecast(
   windSpeed
   ) {
   const foreCastHourly = document.querySelector('#forecast-hourly');
-  let nextHourlyForecast = document.createElement('div');
+  const nextHourlyForecast = document.createElement('div');
     nextHourlyForecast.setAttribute('id', 'next-hourly-forecast');
     nextHourlyForecast.classList.add('forecast-hourly-open');
-  let nextHourlyForecastDateContainer = document.createElement('div');
+  const nextHourlyForecastDateContainer = document.createElement('div');
     nextHourlyForecastDateContainer.setAttribute('id', 'next-hourly-forecast-date-container');
     nextHourlyForecastDateContainer.classList.add('forecast-hourly-open');
-  let nextHourlyForecastDateSvg = document.createElement('img');
+  const nextHourlyForecastDateSvg = document.createElement('img');
     nextHourlyForecastDateSvg.setAttribute('id', 'next-hourly-forecast-date-svg');
     nextHourlyForecastDateSvg.classList.add('forecast-hourly-item-open');
     nextHourlyForecastDateSvg.src = dateSvgImport;
-  let nextHourlyForecastDate = document.createElement('p');
+  const nextHourlyForecastDate = document.createElement('p');
     nextHourlyForecastDate.setAttribute('id', 'next-hourly-forecast-date');
     nextHourlyForecastDate.classList.add('forecast-hourly-item-open');
     nextHourlyForecastDate.textContent = `${date}`;
-  let nextHourlyForecastTimeContainer = document.createElement('div');
+  const nextHourlyForecastTimeContainer = document.createElement('div');
     nextHourlyForecastTimeContainer.setAttribute('id', 'next-hourly-forecast-time-container');
     nextHourlyForecastTimeContainer.classList.add('forecast-hourly-open');
-  let nextHourlyForecastTimeSvg = document.createElement('img');
+  const nextHourlyForecastTimeSvg = document.createElement('img');
     nextHourlyForecastTimeSvg.setAttribute('id', 'next-hourly-forecast-time-svg');
     nextHourlyForecastTimeSvg.classList.add('forecast-hourly-item-open');
     nextHourlyForecastTimeSvg.src = timeSvgImport;
-  let nextHourlyForecastTime = document.createElement('p');
+  const nextHourlyForecastTime = document.createElement('p');
     nextHourlyForecastTime.setAttribute('id', 'next-hourly-forecast-time');
     nextHourlyForecastTime.classList.add('forecast-hourly-item-open');
     nextHourlyForecastTime.textContent = `${time}`;
-  let nextHourlyForecastTempContainer = document.createElement('div');
+  const nextHourlyForecastTempContainer = document.createElement('div');
     nextHourlyForecastTempContainer.setAttribute('id', 'next-hourly-forecast-temp-container');
     nextHourlyForecastTempContainer.classList.add('forecast-hourly-open');
-  let nextHourlyForecastTempSvg = document.createElement('img');
+  const nextHourlyForecastTempSvg = document.createElement('img');
     nextHourlyForecastTempSvg.setAttribute('id', 'next-hourly-forecast-temp-svg');
     nextHourlyForecastTempSvg.classList.add('forecast-hourly-item-open');
     nextHourlyForecastTempSvg.src = tempSvgImport;
-  let nextHourlyForecastTemp = document.createElement('p');
+  const nextHourlyForecastTemp = document.createElement('p');
     nextHourlyForecastTemp.setAttribute('id', 'next-hourly-forecast-temp');
     nextHourlyForecastTemp.classList.add('forecast-hourly-item-open');
-  let nextHourlyForecastHumidityContainer = document.createElement('div');
+  const nextHourlyForecastHumidityContainer = document.createElement('div');
     nextHourlyForecastHumidityContainer.setAttribute('id', 'next-hourly-forecast-humidity-container');
     nextHourlyForecastHumidityContainer.classList.add('forecast-hourly-open');
-  let nextHourlyForecastHumiditySvg = document.createElement('img');
+  const nextHourlyForecastHumiditySvg = document.createElement('img');
     nextHourlyForecastHumiditySvg.setAttribute('id', 'next-hourly-forecast-humidity-svg');
     nextHourlyForecastHumiditySvg.classList.add('forecast-hourly-item-open');
     nextHourlyForecastHumiditySvg.src = humiditySvgImport;
-  let nextHourlyForecastHumidity = document.createElement('p');
+  const nextHourlyForecastHumidity = document.createElement('p');
     nextHourlyForecastHumidity.setAttribute('id', 'next-hourly-forecast-humidity');
     nextHourlyForecastHumidity.classList.add('forecast-hourly-item-open');
     nextHourlyForecastHumidity.textContent = `Humidity: ${humidity} %`;
-  let nextHourlyForecastWeatherTypeContainer = document.createElement('div');
+  const nextHourlyForecastWeatherTypeContainer = document.createElement('div');
     nextHourlyForecastWeatherTypeContainer.setAttribute('id', 'next-hourly-forecast-weather-type-container');
     nextHourlyForecastWeatherTypeContainer.classList.add('forecast-hourly-open');
-  let nextHourlyForecastWeatherTypeSvg = document.createElement('img');
+  const nextHourlyForecastWeatherTypeSvg = document.createElement('img');
     nextHourlyForecastWeatherTypeSvg.setAttribute('id', 'next-hourly-forecast-weather-type-svg');
     nextHourlyForecastWeatherTypeSvg.classList.add('forecast-hourly-item-open');
     nextHourlyForecastWeatherTypeSvg.src = weatherSvgImport;
-  let nextHourlyForecastWeatherType = document.createElement('p');
+  const nextHourlyForecastWeatherType = document.createElement('p');
     nextHourlyForecastWeatherType.setAttribute('id', 'next-hourly-forecast-weather-type');
     nextHourlyForecastWeatherType.classList.add('forecast-hourly-item-open');
     nextHourlyForecastWeatherType.textContent = `${weatherType}, ${weatherDescription}`;
-  let nextHourlyForecastWindContainer = document.createElement('div');
+  const nextHourlyForecastWindContainer = document.createElement('div');
     nextHourlyForecastWindContainer.setAttribute('id', 'next-hourly-forecast-wind-container');
     nextHourlyForecastWindContainer.classList.add('forecast-hourly-open');
-  let nextHourlyForecastWindSvg = document.createElement('img');
+  const nextHourlyForecastWindSvg = document.createElement('img');
     nextHourlyForecastWindSvg.setAttribute('id', 'next-hourly-forecast-wind-svg');
     nextHourlyForecastWindSvg.classList.add('forecast-hourly-item-open');
     nextHourlyForecastWindSvg.src = windSvgImport;
-  let nextHourlyForecastWind = document.createElement('p');
+  const nextHourlyForecastWind = document.createElement('p');
     nextHourlyForecastWind.setAttribute('id', 'next-hourly-forecast-wind');
     nextHourlyForecastWind.classList.add('forecast-hourly-item-open');
     nextHourlyForecastWind.textContent = `Wind Speed: ${windSpeed} MPH`;
@@ -468,71 +470,71 @@ function appendDailyForecast(
   windSpeed
 ) {
   const foreCastDaily = document.querySelector('#forecast-daily');
-  let nextDailyForecast = document.createElement('div');
+  const nextDailyForecast = document.createElement('div');
     nextDailyForecast.setAttribute('id', 'next-daily-forecast');
     nextDailyForecast.classList.add('next-daily-forecast-open');
-    let nextDailyForecastDateContainer = document.createElement('div');
+  const nextDailyForecastDateContainer = document.createElement('div');
     nextDailyForecastDateContainer.setAttribute('id', 'next-daily-forecast-date-container');
     nextDailyForecastDateContainer.classList.add('forecast-daily-open');
-  let nextDailyForecastDateSvg = document.createElement('img');
+  const nextDailyForecastDateSvg = document.createElement('img');
     nextDailyForecastDateSvg.setAttribute('id', 'next-daily-forecast-date-svg');
     nextDailyForecastDateSvg.classList.add('forecast-daily-item-open');
     nextDailyForecastDateSvg.src = dateSvgImport;
-  let nextDailyForecastDate = document.createElement('p');
+  const nextDailyForecastDate = document.createElement('p');
     nextDailyForecastDate.setAttribute('id', 'next-daily-forecast-date');
     nextDailyForecastDate.classList.add('forecast-daily-item-open');
     nextDailyForecastDate.textContent = `${date}`;
-  let nextDailyForecastTimeContainer = document.createElement('div');
+  const nextDailyForecastTimeContainer = document.createElement('div');
     nextDailyForecastTimeContainer.setAttribute('id', 'next-daily-forecast-time-container');
     nextDailyForecastTimeContainer.classList.add('forecast-daily-open');
-  let nextDailyForecastTimeSvg = document.createElement('img');
+  const nextDailyForecastTimeSvg = document.createElement('img');
     nextDailyForecastTimeSvg.setAttribute('id', 'next-daily-forecast-time-svg');
     nextDailyForecastTimeSvg.classList.add('forecast-daily-item-open');
     nextDailyForecastTimeSvg.src = timeSvgImport;
-  let nextDailyForecastTime = document.createElement('p');
+  const nextDailyForecastTime = document.createElement('p');
     nextDailyForecastTime.setAttribute('id', 'next-daily-forecast-time');
     nextDailyForecastTime.classList.add('forecast-daily-item-open');
     nextDailyForecastTime.textContent = `${time}`;
-  let nextDailyForecastTempContainer = document.createElement('div');
+  const nextDailyForecastTempContainer = document.createElement('div');
     nextDailyForecastTempContainer.setAttribute('id', 'next-daily-forecast-temp-container');
     nextDailyForecastTempContainer.classList.add('forecast-daily-open');
-  let nextDailyForecastTempSvg = document.createElement('img');
+  const nextDailyForecastTempSvg = document.createElement('img');
     nextDailyForecastTempSvg.setAttribute('id', 'next-daily-forecast-temp-svg');
     nextDailyForecastTempSvg.classList.add('forecast-daily-item-open');
     nextDailyForecastTempSvg.src = tempSvgImport;
-  let nextDailyForecastTemp = document.createElement('p');
+  const nextDailyForecastTemp = document.createElement('p');
     nextDailyForecastTemp.setAttribute('id', 'next-daily-forecast-temp');
     nextDailyForecastTemp.classList.add('forecast-daily-item-open');
-  let nextDailyForecastHumidityContainer = document.createElement('div');
+  const nextDailyForecastHumidityContainer = document.createElement('div');
     nextDailyForecastHumidityContainer.setAttribute('id', 'next-daily-forecast-humidity-container');
     nextDailyForecastHumidityContainer.classList.add('forecast-daily-open');
-  let nextDailyForecastHumiditySvg = document.createElement('img');
+  const nextDailyForecastHumiditySvg = document.createElement('img');
     nextDailyForecastHumiditySvg.setAttribute('id', 'next-daily-forecast-humidity-svg');
     nextDailyForecastHumiditySvg.classList.add('forecast-daily-item-open');
     nextDailyForecastHumiditySvg.src = humiditySvgImport;
-  let nextDailyForecastHumidity = document.createElement('p');
+  const nextDailyForecastHumidity = document.createElement('p');
     nextDailyForecastHumidity.setAttribute('id', 'next-daily-forecast-humidity');
     nextDailyForecastHumidity.classList.add('forecast-daily-item-open');
     nextDailyForecastHumidity.textContent = `Humidity: ${humidity} %`;
-  let nextDailyForecastWeatherTypeContainer = document.createElement('div');
+  const nextDailyForecastWeatherTypeContainer = document.createElement('div');
     nextDailyForecastWeatherTypeContainer.setAttribute('id', 'next-daily-forecast-weather-type-container');
     nextDailyForecastWeatherTypeContainer.classList.add('forecast-daily-open');
-  let nextDailyForecastWeatherTypeSvg = document.createElement('img');
+  const nextDailyForecastWeatherTypeSvg = document.createElement('img');
     nextDailyForecastWeatherTypeSvg.setAttribute('id', 'next-daily-forecast-weather-type-svg');
     nextDailyForecastWeatherTypeSvg.classList.add('forecast-daily-item-open');
     nextDailyForecastWeatherTypeSvg.src = weatherSvgImport;
-  let nextDailyForecastWeatherType = document.createElement('p');
+  const nextDailyForecastWeatherType = document.createElement('p');
     nextDailyForecastWeatherType.setAttribute('id', 'next-daily-forecast-weather-type');
     nextDailyForecastWeatherType.classList.add('forecast-daily-item-open');
     nextDailyForecastWeatherType.textContent = `${weatherType}, ${weatherDescription}`;
-  let nextDailyForecastWindContainer = document.createElement('div');
+  const nextDailyForecastWindContainer = document.createElement('div');
     nextDailyForecastWindContainer.setAttribute('id', 'next-daily-forecast-wind-container');
     nextDailyForecastWindContainer.classList.add('forecast-daily-open');
-  let nextDailyForecastWindSvg = document.createElement('img');
+  const nextDailyForecastWindSvg = document.createElement('img');
     nextDailyForecastWindSvg.setAttribute('id', 'next-daily-forecast-wind-svg');
     nextDailyForecastWindSvg.classList.add('forecast-daily-item-open');
     nextDailyForecastWindSvg.src = windSvgImport;
-  let nextDailyForecastWind = document.createElement('p');
+  const nextDailyForecastWind = document.createElement('p');
     nextDailyForecastWind.setAttribute('id', 'next-daily-forecast-wind');
     nextDailyForecastWind.classList.add('forecast-daily-item-open');
     nextDailyForecastWind.textContent = `Wind Speed: ${windSpeed} MPH`;
@@ -567,10 +569,10 @@ function appendDailyForecast(
 }
 
 function showHourlyForecast() {
-  const dailyForecastButton = document.querySelector('#daily-forecast-button');
-  const hourlyForecastButton = document.querySelector('#hourly-forecast-button');
-  const forecastDaily = document.querySelector('#forecast-daily');
-  const forecastHourly = document.querySelector('#forecast-hourly');
+  const dailyForecastButton = document.querySelector('#daily-forecast-button'),
+        hourlyForecastButton = document.querySelector('#hourly-forecast-button'),
+        forecastDaily = document.querySelector('#forecast-daily'),
+        forecastHourly = document.querySelector('#forecast-hourly');
 
   if (dailyForecastButton.classList.contains('daily-forecast-button-on')) {
     dailyForecastButton.classList.remove('daily-forecast-button-on');
@@ -589,10 +591,10 @@ function showHourlyForecast() {
 }
 
 function showDailyForecast() {
-  const dailyForecastButton = document.querySelector('#daily-forecast-button');
-  const hourlyForecastButton = document.querySelector('#hourly-forecast-button');
-  const forecastDaily = document.querySelector('#forecast-daily');
-  const forecastHourly = document.querySelector('#forecast-hourly');
+  const dailyForecastButton = document.querySelector('#daily-forecast-button'),
+        hourlyForecastButton = document.querySelector('#hourly-forecast-button'),
+        forecastDaily = document.querySelector('#forecast-daily'),
+        forecastHourly = document.querySelector('#forecast-hourly');
 
   if (dailyForecastButton.classList.contains('daily-forecast-button-on')) {
     return;
@@ -611,10 +613,10 @@ function showDailyForecast() {
 }
 
 function removePreviousInformation() {
-  const locationInformation = document.querySelector('#location-information');
-  const locationExtraInformation = document.querySelector('#location-extra-information');
-  const forecastHourly = document.querySelector('#forecast-hourly');
-  const forecastDaily = document.querySelector('#forecast-daily');
+  const locationInformation = document.querySelector('#location-information'),
+        locationExtraInformation = document.querySelector('#location-extra-information'),
+        forecastHourly = document.querySelector('#forecast-hourly'),
+        forecastDaily = document.querySelector('#forecast-daily');
 
   removeAllChildNodes(locationInformation);
   removeAllChildNodes(locationExtraInformation);
@@ -629,11 +631,11 @@ function removeAllChildNodes(parent) {
 }
 
 function showFahrenheit() {
-  const fahrenheitButton = document.querySelector('#fahrenheit-button');
-  const celsiusButton = document.querySelector('#celsius-button');
+  const fahrenheitButton = document.querySelector('#fahrenheit-button'),
+        celsiusButton = document.querySelector('#celsius-button');
 
   // informs user on when to expect to see the celsius/fahrenheit reading change. It only shows it once per session
-  let firstAlert = sessionStorage.getItem('first-alert');
+  const firstAlert = sessionStorage.getItem('first-alert');
   if (firstAlert === 'true') {
     alert('When changing between celsius and fahrenheit, the temperature readings will change on your next search');
     sessionStorage.setItem('first-alert', 'false');
@@ -652,11 +654,11 @@ function showFahrenheit() {
 }
 
 function showCelsius() {
-  const fahrenheitButton = document.querySelector('#fahrenheit-button');
-  const celsiusButton = document.querySelector('#celsius-button');
+  const fahrenheitButton = document.querySelector('#fahrenheit-button'),
+        celsiusButton = document.querySelector('#celsius-button');
 
   // informs user on when to expect to see the celsius/fahrenheit reading change. It only shows it once per session
-  let firstAlert = sessionStorage.getItem('first-alert');
+  const firstAlert = sessionStorage.getItem('first-alert');
   if (firstAlert === 'true') {
     alert('When changing between celsius and fahrenheit, the temperature readings will change on your next search');
     sessionStorage.setItem('first-alert', 'false');
@@ -675,8 +677,9 @@ function showCelsius() {
 }
 
 function fahrenheitToCelsius(number) {
-  let total = (number-32) * 5/9
-  let rounded = Math.round(total * 10) / 10;
+  const total = (number-32) * 5/9,
+        rounded = Math.round(total * 10) / 10;
+
   number = rounded;
   return number;
 }
