@@ -1,8 +1,10 @@
 # weather-app
 
+Live Link: https://dutsandrew.github.io/weather-app/
+
 <strong>Preview:</strong>
 
-![Weather App (5)](https://user-images.githubusercontent.com/94728848/187818099-50792ed0-b913-44a0-9978-46ba64b31284.gif)
+![weather ref](https://user-images.githubusercontent.com/94728848/213885839-258d8094-3322-4868-bb80-56a36837aeac.png)
 
 <strong>How-to:</strong>
 
