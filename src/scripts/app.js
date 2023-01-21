@@ -11,7 +11,6 @@ import dateSvgImport from '../svgs/date.svg';
 import feelsLikeSvgImport from '../svgs/feels-like.svg';
 import humiditySvgImport from '../svgs/humidity.svg';
 import locationSvgImport from '../svgs/location.svg';
-import searchSvgImport from '../svgs/search.svg';
 import tempMaxSvgImport from '../svgs/temp-max.svg';
 import tempMinSvgImport from '../svgs/temp-min.svg';
 import tempSvgImport from '../svgs/temp.svg';
